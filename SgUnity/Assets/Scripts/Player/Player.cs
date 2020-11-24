@@ -38,8 +38,8 @@ namespace SgUnity.Player
         {
             foreach (PlayerComponent o in components)
                 o.Tick();
-
         }
+        
         void HandleBulletHit(OnBulletHit e)
         {
             if (e.Type != EBULLET_TYPE.ENEMY || e.ObjectHit != this.gameObject)
@@ -62,10 +62,7 @@ namespace SgUnity.Player
     class OnPlayerHPChange : IDomainEvent
     {
         public int HP { get; private set; }
-        public OnPlayerHPChange(int newHP)
-        {
-            this.HP = newHP < 0 ? 0 : newHP;
-        }
+        public OnPlayerHPChange(int newHP) => this.HP = newHP < 0 ? 0 : newHP;
     }
 
 }

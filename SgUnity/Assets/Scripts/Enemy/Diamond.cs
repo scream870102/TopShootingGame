@@ -10,6 +10,7 @@ namespace SgUnity.Enemy
         public Rigidbody2D Rb => rb;
         void Awake()
         {
+            Init(attr as BasicEnemyAttribute);
             rb = GetComponent<Rigidbody2D>();
             components.Add(new DiamondMove(attr, this));
             components.Add(new DiamondShoot(attr, this));
@@ -52,13 +53,7 @@ namespace SgUnity.Enemy
 
         void FindNewTarget() => targetPos = new Vector2(Random.Range(-attr.MoveRange, attr.MoveRange), Parent.transform.position.y);
 
-        void HandleColEnter(Collision2D other)
-        {
-            if (other.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
-                Parent.gameObject.SetActive(false);
-            FindNewTarget();
-
-        }
+        void HandleColEnter(Collision2D other) => FindNewTarget();
     }
 
 
@@ -83,7 +78,7 @@ namespace SgUnity.Enemy
     }
 
     [System.Serializable]
-    class DiamondAttribute
+    class DiamondAttribute : BasicEnemyAttribute
     {
         [SerializeField] float moveRange = 0f;
         [SerializeField] float moveSpeed = 3f;
