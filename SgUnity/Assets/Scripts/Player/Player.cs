@@ -49,7 +49,6 @@ namespace SgUnity.Player
             DomainEvents.Raise<OnPlayerHPChange>(new OnPlayerHPChange(hp));
             if (hp == 0)
                 DomainEvents.Raise<OnPlayerDead>(new OnPlayerDead());
-
         }
 
     }

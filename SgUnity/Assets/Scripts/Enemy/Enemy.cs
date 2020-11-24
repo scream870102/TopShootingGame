@@ -64,7 +64,8 @@ namespace SgUnity.Enemy
         protected AEnemy Parent { get; private set; }
         public AEnemyComponent(AEnemy parent) => this.Parent = parent;
         public virtual void Tick() { }
-
+        public virtual void HandleEnable() { }
+        public virtual void HandleDisable() { }
     }
 
     class BasicEnemyAttribute
