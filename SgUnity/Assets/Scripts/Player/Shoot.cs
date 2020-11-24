@@ -28,9 +28,7 @@ namespace SgUnity.Player
             if (bShootPressed && timer.IsFinished)
             {
                 timer.Reset();
-                Bullet bullet = LeanPool.Spawn(attr.BulletPrefab, Player.transform.position, Quaternion.identity).GetComponent<Bullet>();
-                bullet.gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
-                bullet?.Shoot(attr.BulletVelocity);
+                LeanPool.Spawn(attr.BulletPrefab, Player.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(attr.BulletVelocity,EBULLET_TYPE.PLAYER);
             }
         }
 
