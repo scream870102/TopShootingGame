@@ -1,8 +1,8 @@
 
-=== Tue Nov 24 17:22:49 2020
+=== Tue Nov 24 13:07:21 2020
 
 Packages were changed.
-Update Mode: resetToDefaultDependencies
+Update Mode: mergeDefaultDependencies
 
 The following packages were added:
   com.unity.collab-proxy@1.3.9
@@ -44,3 +44,7 @@ The following packages were added:
   com.unity.textmeshpro@3.0.1
   com.unity.timeline@1.3.6
   com.unity.ugui@1.0.0
+The following packages were updated:
+  com.unity.2d.animation from version 4.2.5 to 4.2.6
+  com.unity.2d.psdimporter from version 3.1.5 to 3.1.6
+  com.unity.2d.spriteshape from version 4.1.3 to 4.1.4
