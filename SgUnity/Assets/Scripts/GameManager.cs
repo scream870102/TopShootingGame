@@ -1,18 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameManager : MonoBehaviour
+﻿using Eccentric.Utils;
+namespace SgUnity
 {
-    // Start is called before the first frame update
-    void Start()
+    class GameManager : TSingletonMonoBehavior<GameManager>
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
