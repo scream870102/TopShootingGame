@@ -28,7 +28,7 @@ namespace SgUnity.Player
             if (bShootPressed && timer.IsFinished)
             {
                 timer.Reset();
-                LeanPool.Spawn(attr.BulletPrefab, Player.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(attr.BulletVelocity,EBULLET_TYPE.PLAYER);
+                LeanPool.Spawn(attr.BulletPrefab, Player.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(attr.BulletVelocity, EBULLET_TYPE.PLAYER, attr.Damage);
             }
         }
 
@@ -43,8 +43,10 @@ namespace SgUnity.Player
         [SerializeField] GameObject bulletPrefab = null;
         [SerializeField] float cd = 0.5f;
         [SerializeField] Vector2 bulletVelocity = new Vector2(0f, .5f);
+        [SerializeField] int damage = 10;
         public GameObject BulletPrefab => bulletPrefab;
         public float Cd => cd;
         public Vector2 BulletVelocity => bulletVelocity;
+        public int Damage => damage;
     }
 }

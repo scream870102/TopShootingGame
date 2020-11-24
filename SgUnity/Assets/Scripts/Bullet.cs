@@ -1,5 +1,6 @@
 using Lean.Pool;
 using UnityEngine;
+using Eccentric;
 namespace SgUnity
 {
     class Bullet : MonoBehaviour
@@ -7,6 +8,8 @@ namespace SgUnity
         Rigidbody2D rb = null;
         Collider2D col = null;
         SpriteRenderer sr = null;
+        EBULLET_TYPE type = default(EBULLET_TYPE);
+        int damage = 0;
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -17,6 +20,8 @@ namespace SgUnity
 
         public void Shoot(Vector2 vel, EBULLET_TYPE type, int damage = 0)
         {
+            this.type = type;
+            this.damage = damage;
             switch (type)
             {
                 case EBULLET_TYPE.PLAYER:
@@ -43,12 +48,28 @@ namespace SgUnity
 
         void OnCollisionEnter2D(Collision2D other)
         {
+            DomainEvents.Raise<OnBulletHit>(new OnBulletHit(other.gameObject, damage, type));
             LeanPool.Despawn(this.gameObject);
         }
+
+
     }
     enum EBULLET_TYPE
     {
         PLAYER,
         ENEMY
+    }
+
+    class OnBulletHit : IDomainEvent
+    {
+        public GameObject ObjectHit { get; private set; }
+        public int Damage { get; private set; }
+        public EBULLET_TYPE Type { get; private set; }
+        public OnBulletHit(GameObject objectHit, int damage, EBULLET_TYPE type)
+        {
+            this.ObjectHit = objectHit;
+            this.Damage = damage;
+            this.Type = type;
+        }
     }
 }

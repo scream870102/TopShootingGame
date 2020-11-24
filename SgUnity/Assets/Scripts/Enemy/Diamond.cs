@@ -77,7 +77,7 @@ namespace SgUnity.Enemy
             if (timer.IsFinished)
             {
                 timer.Reset();
-                LeanPool.Spawn(attr.BulletPrefab, Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, -attr.BulletVel), EBULLET_TYPE.ENEMY);
+                LeanPool.Spawn(attr.BulletPrefab, Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, -attr.BulletVel), EBULLET_TYPE.ENEMY, attr.Damage);
             }
         }
     }
@@ -90,10 +90,12 @@ namespace SgUnity.Enemy
         [SerializeField] float shootCd = 1f;
         [SerializeField] GameObject bulletPrefab = null;
         [SerializeField] float bulletVel = 3f;
+        [SerializeField] int damage = 10;
         public float MoveRange => moveRange;
         public float MoveSpeed => moveSpeed;
         public float ShootCd => shootCd;
         public GameObject BulletPrefab => bulletPrefab;
         public float BulletVel => bulletVel;
+        public int Damage => damage;
     }
 }
