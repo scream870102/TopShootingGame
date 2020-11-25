@@ -72,7 +72,7 @@ namespace SgUnity.Enemy
     class BasicEnemyAttribute
     {
         public int Score = 10;
-        public int HP = 0;
+        public int HP = 1;
     }
 
     enum EEnemyType

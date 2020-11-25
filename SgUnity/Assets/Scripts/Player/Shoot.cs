@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Eccentric.Utils;
 using Lean.Pool;
 namespace SgUnity.Player
@@ -9,31 +8,25 @@ namespace SgUnity.Player
         ScaledTimer timer = null;
         ShootAttribute attr = null;
         bool bShootPressed = false;
-        public Shoot(ShootAttribute attr, Player player, PlayerInput input) : base(player, input) {
-            this.Input.GamePlay.Shoot.started += HandleShootStarted;
-            this.Input.GamePlay.Shoot.canceled += HandleShootCanceled;
+        public Shoot(ShootAttribute attr, Player player) : base(player) {
             this.attr = attr;
             timer = new ScaledTimer(attr.Cd);
         }
 
-        ~Shoot() {
-            this.Input.GamePlay.Shoot.started -= HandleShootStarted;
-            this.Input.GamePlay.Shoot.canceled -= HandleShootCanceled;
-        }
 
         public override void Tick() {
+            if(Input.GetButtonDown("Shoot"))
+                bShootPressed=true;
+            else if(Input.GetButtonUp("Shoot"))
+                bShootPressed=false;
             if (bShootPressed && timer.IsFinished)
             {
                 timer.Reset();
                 LeanPool.Spawn(attr.BulletPrefab, Player.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(attr.BulletVelocity, EBulletType.PLAYER, attr.Damage);
             }
         }
-
-        void HandleShootStarted(InputAction.CallbackContext ctx) => bShootPressed = true;
-
-        void HandleShootCanceled(InputAction.CallbackContext ctx) => bShootPressed = false;
-
     }
+    
     [System.Serializable]
     class ShootAttribute
     {

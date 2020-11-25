@@ -9,26 +9,18 @@ namespace SgUnity.Player
         [ReadOnly] [SerializeField] int hp = 100;
         [SerializeField] ShootAttribute shootAttr = null;
         [SerializeField] MoveAttribute moveAttribute = null;
-        PlayerInput input = null;
         List<PlayerComponent> components = new List<PlayerComponent>();
 
         public Rigidbody2D Rb { get; private set; }
-        void OnEnable() {
-            input.GamePlay.Enable();
-            DomainEvents.Register<OnBulletHit>(HandleBulletHit);
-        }
+        void OnEnable() => DomainEvents.Register<OnBulletHit>(HandleBulletHit);
 
-        void OnDisable() {
-            input.GamePlay.Disable();
-            DomainEvents.UnRegister<OnBulletHit>(HandleBulletHit);
-        }
+        void OnDisable() => DomainEvents.UnRegister<OnBulletHit>(HandleBulletHit);
 
         void Awake() {
             Rb = GetComponent<Rigidbody2D>();
-            input = new PlayerInput();
-            components.Add(new Shoot(shootAttr, this, input));
-            components.Add(new Move(moveAttribute, this, input));
-
+            Rb.velocity = Vector2.zero;
+            components.Add(new Shoot(shootAttr, this));
+            components.Add(new Move(moveAttribute, this));
         }
 
         void Update() {

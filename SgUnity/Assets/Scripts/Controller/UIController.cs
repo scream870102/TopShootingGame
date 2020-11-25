@@ -33,7 +33,7 @@ namespace SgUnity
 
         void HandleEnemyDead(OnEnemyDead e) {
             score += e.Score;
-            scoreText.text = e.Score.ToString();
+            scoreText.text = score.ToString();
         }
     }
 
