@@ -817,6 +817,14 @@ MonoBehaviour:
     BulletVel: 3
     Damage: 10
     IsStartFromRight: 0
+  SQ_FILENAME: SQUARE_01.json
+  SQ:
+    Score: 10
+    HP: 0
+    PosInterval: 2
+    ShootCd: 1
+    BulletVel: 3
+    Damage: 10
 --- !u!1 &1222969099
 GameObject:
   m_ObjectHideFlags: 0

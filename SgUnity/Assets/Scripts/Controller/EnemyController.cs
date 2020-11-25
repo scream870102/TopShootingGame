@@ -32,6 +32,8 @@ namespace SgUnity
                     t.SetAttribute(triangleAttributes[spawnEvent.settingIndex]);
                     o.SetActive(true);
                     break;
+                case EEnemyType.SQUARE:
+                    break;
                 case EEnemyType.DIAMOND:
                     break;
                 case EEnemyType.BOSS:

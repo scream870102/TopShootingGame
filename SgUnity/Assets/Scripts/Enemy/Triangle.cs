@@ -30,9 +30,7 @@ namespace SgUnity.Enemy
     }
     abstract class TriangleComponent : AEnemyComponent
     {
-        public TriangleComponent(TriangleAttribute attr, AEnemy parent) : base(parent) {
-            this.Attr = attr;
-        }
+        public TriangleComponent(TriangleAttribute attr, AEnemy parent) : base(parent) => this.Attr = attr;
         public TriangleAttribute Attr { get; set; }
     }
 
@@ -57,6 +55,7 @@ namespace SgUnity.Enemy
         }
 
         public override void HandleDisable() { }
+        public override void Tick() { }
 
         void HandleColEnter(Collision2D other) {
             if (other.gameObject.tag != "Wall")

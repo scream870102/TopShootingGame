@@ -14,6 +14,8 @@ namespace SgUnity
         [ReadOnly] public string PATH = "";
         [SerializeField] string TA_FILENAME = "NONE";
         [SerializeField] TriangleAttribute TA;
+        [SerializeField] string SQ_FILENAME = "NONE";
+        [SerializeField] SquareAttribute SQ;
         public void Apply() {
             CheckDirectory(PATH);
             if (TA_FILENAME != "NONE")
@@ -30,6 +32,20 @@ namespace SgUnity
                     Debug.Log($"{path} created");
                 }
             }
+            if (SQ_FILENAME != "NONE")
+            {
+                string path = PATH + "/" + SQ_FILENAME;
+
+                if (!File.Exists(path))
+                {
+                    FileStream fs = new FileStream(path, FileMode.Create);
+                    string fileContext = JsonUtility.ToJson(SQ);
+                    StreamWriter file = new StreamWriter(fs);
+                    file.Write(fileContext);
+                    file.Close();
+                    Debug.Log($"{path} created");
+                }
+            }
         }
 
 
@@ -39,7 +55,7 @@ namespace SgUnity
                 Directory.CreateDirectory(path);
         }
     }
-    
+
     [CustomEditor(typeof(EnemyAttrSpawn))]
     public class EnemyAttrSpawnEditor : Editor
     {

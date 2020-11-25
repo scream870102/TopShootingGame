@@ -64,7 +64,7 @@ namespace SgUnity.Enemy
     {
         protected AEnemy Parent { get; private set; }
         public AEnemyComponent(AEnemy parent) => this.Parent = parent;
-        public virtual void Tick() { }
+        public abstract void Tick();
         public abstract void HandleEnable();
         public abstract void HandleDisable();
     }
@@ -79,6 +79,7 @@ namespace SgUnity.Enemy
     {
         NONE,
         TRIANGLE,
+        SQUARE,
         DIAMOND,
         BOSS,
     }
