@@ -11,6 +11,7 @@ namespace SgUnity
     {
         [SerializeField] List<Transform> spawnPoint = new List<Transform>();
         [SerializeField] List<TriangleAttribute> triangleAttributes = new List<TriangleAttribute>();
+        [SerializeField] List<SquareAttribute> squareAttributes = new List<SquareAttribute>();
         [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] List<GameObject> activeEnemies = new List<GameObject>();
         void Awake() {
@@ -33,6 +34,14 @@ namespace SgUnity
                     o.SetActive(true);
                     break;
                 case EEnemyType.SQUARE:
+                    Square sq = o.GetComponent<Square>();
+                    sq.PosList = new List<Transform>(spawnPoint);
+                    // sq.PosList = new List<Transform>();
+                    // foreach (Transform tf in spawnPoint)
+                    //     sq.PosList.Add(tf);
+                    sq.SetAttribute(squareAttributes[spawnEvent.settingIndex],spawnPoint);
+
+                    o.SetActive(true);
                     break;
                 case EEnemyType.DIAMOND:
                     break;
@@ -58,6 +67,8 @@ namespace SgUnity
                 string type = file.Name.Split('_')[0];
                 if (type == "TRIANGLE")
                     triangleAttributes.Add(JsonUtility.FromJson<TriangleAttribute>(file.OpenText().ReadToEnd()));
+                else if (type == "SQUARE")
+                    squareAttributes.Add(JsonUtility.FromJson<SquareAttribute>(file.OpenText().ReadToEnd()));
 
             }
         }

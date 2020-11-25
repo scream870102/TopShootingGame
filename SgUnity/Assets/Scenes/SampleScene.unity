@@ -808,19 +808,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PATH: C:/Scream/Unity/TOYDEA Lesson2/SgUnity/Assets
-  TA_FILENAME: TRIANGLE_02.json
+  TA_FILENAME: NONE
   TA:
     Score: 10
     HP: 1
-    MoveSpeed: 6
+    MoveSpeed: 3
     ShootCd: 1
     BulletVel: 3
     Damage: 10
     IsStartFromRight: 0
-  SQ_FILENAME: SQUARE_01.json
+  SQ_FILENAME: NONE
   SQ:
     Score: 10
-    HP: 0
+    HP: 1
+    PosList: 00000000010000000200000003000000
     PosInterval: 2
     ShootCd: 1
     BulletVel: 3
@@ -1762,10 +1763,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: []
   triangleAttributes: []
+  squareAttributes: []
   enemyPrefabs:
   - {fileID: 0}
   - {fileID: 7592293851469092841, guid: db82ea4d37aeae540b07817a149cf275, type: 3}
-  - {fileID: 0}
+  - {fileID: 3712882998951282666, guid: 54756af4b4e1187458d61a7e9adca1b2, type: 3}
   - {fileID: 0}
   activeEnemies: []
 --- !u!4 &2009748186

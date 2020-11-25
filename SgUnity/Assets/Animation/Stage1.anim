@@ -31,7 +31,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 3
+    m_StopTime: 6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -81,14 +81,28 @@ AnimationClip:
     messageOptions: 0
   - time: 3
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\2
+    data: SQUARE\\2\\4
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 3
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\1
+    data: SQUARE\\1\\2
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 6
+    functionName: SpawnEnemyAE
+    data: SQUARE\\2\\4
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 6
+    functionName: SpawnEnemyAE
+    data: SQUARE\\1\\2
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

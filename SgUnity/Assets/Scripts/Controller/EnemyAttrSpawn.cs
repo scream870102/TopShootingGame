@@ -13,9 +13,17 @@ namespace SgUnity
     {
         [ReadOnly] public string PATH = "";
         [SerializeField] string TA_FILENAME = "NONE";
-        [SerializeField] TriangleAttribute TA;
+        [SerializeField] TriangleAttribute TA = null;
         [SerializeField] string SQ_FILENAME = "NONE";
-        [SerializeField] SquareAttribute SQ;
+        [SerializeField] SquareAttribute SQ = null;
+
+        public void Reset() {
+            TA_FILENAME = "NONE";
+            SQ_FILENAME = "NONE";
+            TA = new TriangleAttribute();
+            SQ = new SquareAttribute();
+        }
+
         public void Apply() {
             CheckDirectory(PATH);
             if (TA_FILENAME != "NONE")
@@ -65,6 +73,8 @@ namespace SgUnity
             myScript.PATH = Application.dataPath;
             if (GUILayout.Button("Apply"))
                 myScript.Apply();
+            if (GUILayout.Button("Reset"))
+                myScript.Reset();
         }
     }
 }
