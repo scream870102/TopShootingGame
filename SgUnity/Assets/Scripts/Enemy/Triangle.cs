@@ -10,70 +10,55 @@ namespace SgUnity.Enemy
         [SerializeField] TriangleAttribute attr = null;
         Rigidbody2D rb = null;
         public Rigidbody2D Rb => rb;
-        void Awake()
-        {
+        void Awake() {
             Init(attr as BasicEnemyAttribute);
             rb = GetComponent<Rigidbody2D>();
             components.Add(new TriangleMove(attr, this));
-            //components.Add(new TriangleShoot(attr, this));
-        }
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            foreach (AEnemyComponent o in components)
-                o.HandleEnable();
+            components.Add(new TriangleShoot(attr, this));
         }
 
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            foreach (AEnemyComponent o in components)
-                o.HandleDisable();
-        }
-
-        void Update()
-        {
+        void Update() {
             foreach (AEnemyComponent o in components)
                 o.Tick();
         }
+        public void SetAttribute(TriangleAttribute attr) {
+            this.attr = attr;
+            Init(this.attr as BasicEnemyAttribute);
+            foreach (AEnemyComponent o in components)
+                (o as TriangleComponent).Attr = this.attr;
+        }
+    }
+    abstract class TriangleComponent : AEnemyComponent
+    {
+        public TriangleComponent(TriangleAttribute attr, AEnemy parent) : base(parent) {
+            this.Attr = attr;
+        }
+        public TriangleAttribute Attr { get; set; }
     }
 
-    class TriangleMove : AEnemyComponent
+    class TriangleMove : TriangleComponent
     {
-        TriangleAttribute attr = null;
         Rigidbody2D rb = null;
         bool bStartFromRight = false;
         Vector2 dir = default(Vector2);
-        public TriangleMove(TriangleAttribute attr, AEnemy parent) : base(parent)
-        {
-            this.attr = attr;
+        public TriangleMove(TriangleAttribute attr, AEnemy parent) : base(attr, parent) {
             Triangle triangle = parent as Triangle;
             triangle.OnColEnter += HandleColEnter;
             rb = triangle.Rb;
         }
 
-        ~TriangleMove()
-        {
+        ~TriangleMove() {
             (Parent as Triangle).OnColEnter -= HandleColEnter;
         }
-        // public override void Tick()
-        // {
 
-        // }
-        public override void HandleEnable()
-        {
-            bStartFromRight = attr.IsStartFromRight;
+        public override void HandleEnable() {
+            bStartFromRight = Attr.IsStartFromRight;
             Init();
         }
 
-        public override void HandleDisable()
-        {
-        }
+        public override void HandleDisable() { }
 
-
-        void HandleColEnter(Collision2D other)
-        {
-            Debug.Log(other);
+        void HandleColEnter(Collision2D other) {
             if (other.gameObject.tag != "Wall")
                 return;
             bStartFromRight = !bStartFromRight;
@@ -81,50 +66,42 @@ namespace SgUnity.Enemy
 
         }
 
-        void Init()
-        {
+        void Init() {
             Render2D.ChangeDirection(bStartFromRight, Parent.transform, true);
             dir = bStartFromRight ? Vector2.left : Vector2.right;
-            rb.velocity = dir * attr.MoveSpeed;
+            rb.velocity = dir * Attr.MoveSpeed;
         }
     }
 
 
-    // class TriangleShoot : AEnemyComponent
-    // {
-    //     ScaledTimer timer = null;
-    //     TriangleAttribute attr = null;
-    //     public TriangleShoot(TriangleAttribute attr, AEnemy parent) : base(parent)
-    //     {
-    //         this.attr = attr;
-    //         timer = new ScaledTimer(attr.ShootCd);
-    //     }
+    class TriangleShoot : TriangleComponent
+    {
+        ScaledTimer timer = null;
+        public TriangleShoot(TriangleAttribute attr, AEnemy parent) : base(attr, parent) {
+            timer = new ScaledTimer(attr.ShootCd);
+        }
 
-    //     public override void Tick()
-    //     {
-    //         if (timer.IsFinished)
-    //         {
-    //             timer.Reset();
-    //             LeanPool.Spawn(attr.BulletPrefab, Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, -attr.BulletVel), EBULLET_TYPE.ENEMY, attr.Damage);
-    //         }
-    //     }
-    // }
+        public override void Tick() {
+            if (timer.IsFinished)
+            {
+                timer.Reset(Attr.ShootCd);
+                LeanPool.Spawn(Parent.BulletPrefab, Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, -Attr.BulletVel), EBulletType.ENEMY, Attr.Damage);
+                LeanPool.Spawn(Parent.BulletPrefab, Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, Attr.BulletVel), EBulletType.ENEMY, Attr.Damage);
+            }
+        }
+
+        public override void HandleEnable() { }
+        public override void HandleDisable() { }
+    }
 
     [System.Serializable]
     class TriangleAttribute : BasicEnemyAttribute
     {
-        [SerializeField] float moveSpeed = 3f;
-        [SerializeField] float shootCd = 1f;
-        [SerializeField] GameObject bulletPrefab = null;
-        [SerializeField] float bulletVel = 3f;
-        [SerializeField] int damage = 10;
-        [SerializeField] bool bStartFromRight = false;
-        public float MoveSpeed => moveSpeed;
-        public float ShootCd => shootCd;
-        public GameObject BulletPrefab => bulletPrefab;
-        public float BulletVel => bulletVel;
-        public int Damage => damage;
-        public bool IsStartFromRight => bStartFromRight;
+        public float MoveSpeed = 3f;
+        public float ShootCd = 1f;
+        public float BulletVel = 3f;
+        public int Damage = 10;
+        public bool IsStartFromRight = false;
 
     }
 }

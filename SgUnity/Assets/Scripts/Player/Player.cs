@@ -13,20 +13,17 @@ namespace SgUnity.Player
         List<PlayerComponent> components = new List<PlayerComponent>();
 
         public Rigidbody2D Rb { get; private set; }
-        void OnEnable()
-        {
+        void OnEnable() {
             input.GamePlay.Enable();
             DomainEvents.Register<OnBulletHit>(HandleBulletHit);
         }
 
-        void OnDisable()
-        {
+        void OnDisable() {
             input.GamePlay.Disable();
             DomainEvents.UnRegister<OnBulletHit>(HandleBulletHit);
         }
 
-        void Awake()
-        {
+        void Awake() {
             Rb = GetComponent<Rigidbody2D>();
             input = new PlayerInput();
             components.Add(new Shoot(shootAttr, this, input));
@@ -34,15 +31,13 @@ namespace SgUnity.Player
 
         }
 
-        void Update()
-        {
+        void Update() {
             foreach (PlayerComponent o in components)
                 o.Tick();
         }
-        
-        void HandleBulletHit(OnBulletHit e)
-        {
-            if (e.Type != EBULLET_TYPE.ENEMY || e.ObjectHit != this.gameObject)
+
+        void HandleBulletHit(OnBulletHit e) {
+            if (e.Type != EBulletType.ENEMY || e.ObjectHit != this.gameObject)
                 return;
             hp -= e.Damage;
             hp = hp < 0 ? 0 : hp;

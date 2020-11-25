@@ -8,27 +8,25 @@ namespace SgUnity
         Rigidbody2D rb = null;
         Collider2D col = null;
         SpriteRenderer sr = null;
-        EBULLET_TYPE type = default(EBULLET_TYPE);
+        EBulletType type = default(EBulletType);
         int damage = 0;
-        void Awake()
-        {
+        void Awake() {
             rb = GetComponent<Rigidbody2D>();
             col = GetComponent<Collider2D>();
             sr = GetComponent<SpriteRenderer>();
             col.enabled = false;
         }
 
-        public void Shoot(Vector2 vel, EBULLET_TYPE type, int damage = 0)
-        {
+        public void Shoot(Vector2 vel, EBulletType type, int damage = 0) {
             this.type = type;
             this.damage = damage;
             switch (type)
             {
-                case EBULLET_TYPE.PLAYER:
+                case EBulletType.PLAYER:
                     this.gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
                     sr.color = new Color(1f, .49f, .64f);
                     break;
-                case EBULLET_TYPE.ENEMY:
+                case EBulletType.ENEMY:
                     this.gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
                     sr.color = new Color(.16f, .61f, .41f);
                     break;
@@ -39,22 +37,20 @@ namespace SgUnity
 
         void OnEnable() { }
 
-        void OnDisable()
-        {
+        void OnDisable() {
             rb.velocity = Vector2.zero;
             col.enabled = false;
         }
 
 
-        void OnCollisionEnter2D(Collision2D other)
-        {
+        void OnCollisionEnter2D(Collision2D other) {
             DomainEvents.Raise<OnBulletHit>(new OnBulletHit(other.gameObject, damage, type));
             LeanPool.Despawn(this.gameObject);
         }
 
 
     }
-    enum EBULLET_TYPE
+    enum EBulletType
     {
         PLAYER,
         ENEMY
@@ -64,9 +60,8 @@ namespace SgUnity
     {
         public GameObject ObjectHit { get; private set; }
         public int Damage { get; private set; }
-        public EBULLET_TYPE Type { get; private set; }
-        public OnBulletHit(GameObject objectHit, int damage, EBULLET_TYPE type)
-        {
+        public EBulletType Type { get; private set; }
+        public OnBulletHit(GameObject objectHit, int damage, EBulletType type) {
             this.ObjectHit = objectHit;
             this.Damage = damage;
             this.Type = type;

@@ -8,8 +8,7 @@ namespace SgUnity.Player
         Rigidbody2D rb = null;
         Vector2 direction = default(Vector2);
         MoveAttribute attr = null;
-        public Move(MoveAttribute attr, Player player, PlayerInput input) : base(player, input)
-        {
+        public Move(MoveAttribute attr, Player player, PlayerInput input) : base(player, input) {
             this.Input.GamePlay.Move.started += HandleMoveStarted;
             this.Input.GamePlay.Move.performed += HandleMovePerformed;
             this.Input.GamePlay.Move.canceled += HandleMoveCanceled;
@@ -18,8 +17,7 @@ namespace SgUnity.Player
 
         }
 
-        ~Move()
-        {
+        ~Move() {
             this.Input.GamePlay.Move.started -= HandleMoveStarted;
             this.Input.GamePlay.Move.performed -= HandleMovePerformed;
             this.Input.GamePlay.Move.canceled -= HandleMoveCanceled;
