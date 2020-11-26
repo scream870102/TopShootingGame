@@ -1,99 +1,98 @@
-using UnityEngine;
-using Eccentric.Utils;
-using Lean.Pool;
-namespace SgUnity.Enemy
-{
-    class Diamond : AEnemy
-    {
-        [SerializeField] DiamondAttribute attr = null;
-        Rigidbody2D rb = null;
-        public Rigidbody2D Rb => rb;
-        void Awake()
-        {
-            rb = GetComponent<Rigidbody2D>();
-            components.Add(new DiamondMove(attr, this));
-            components.Add(new DiamondShoot(attr, this));
-        }
+// // TODO:ToTriangle
 
-        void Update()
-        {
-            foreach (AEnemyComponent o in components)
-                o.Tick();
-        }
-    }
+// using UnityEngine;
+// using Eccentric.Utils;
+// using Lean.Pool;
+// namespace SgUnity.Enemy
+// {
+//     class Diamond : AEnemy
+//     {
+//         [SerializeField] DiamondAttribute attr = null;
+//         Rigidbody2D rb = null;
+//         public Rigidbody2D Rb => rb;
+//         void Awake()
+//         {
+//             Init(attr as BasicEnemyAttribute);
+//             rb = GetComponent<Rigidbody2D>();
+//             components.Add(new DiamondMove(attr, this));
+//             components.Add(new DiamondShoot(attr, this));
+//         }
 
-    class DiamondMove : AEnemyComponent
-    {
-        DiamondAttribute attr = null;
-        Vector2 targetPos = default(Vector2);
-        Rigidbody2D rb = null;
-        public DiamondMove(DiamondAttribute attr, AEnemy parent) : base(parent)
-        {
-            this.attr = attr;
-            FindNewTarget();
-            Diamond diamond = parent as Diamond;
-            diamond.OnColEnter += HandleColEnter;
-            rb = diamond.Rb;
-        }
+//         void Update()
+//         {
+//             foreach (AEnemyComponent o in components)
+//                 o.Tick();
+//         }
+//     }
 
-        ~DiamondMove()
-        {
-            Diamond diamond = Parent as Diamond;
-            diamond.OnColEnter -= HandleColEnter;
-        }
+//     class DiamondMove : AEnemyComponent
+//     {
+//         DiamondAttribute attr = null;
+//         Vector2 targetPos = default(Vector2);
+//         Rigidbody2D rb = null;
+//         public DiamondMove(DiamondAttribute attr, AEnemy parent) : base(parent)
+//         {
+//             this.attr = attr;
+//             FindNewTarget();
+//             Diamond diamond = parent as Diamond;
+//             diamond.OnColEnter += HandleColEnter;
+//             rb = diamond.Rb;
+//         }
 
-        public override void Tick()
-        {
-            if (((Vector2)Parent.transform.position - targetPos).sqrMagnitude < .1f)
-                FindNewTarget();
-            Vector2 dir = (targetPos - (Vector2)Parent.transform.position).normalized;
-            rb.velocity = dir * attr.MoveSpeed;
-        }
+//         ~DiamondMove()
+//         {
+//             Diamond diamond = Parent as Diamond;
+//             diamond.OnColEnter -= HandleColEnter;
+//         }
 
-        void FindNewTarget() => targetPos = new Vector2(Random.Range(-attr.MoveRange, attr.MoveRange), Parent.transform.position.y);
+//         public override void Tick()
+//         {
+//             if (((Vector2)Parent.transform.position - targetPos).sqrMagnitude < .1f)
+//                 FindNewTarget();
+//             Vector2 dir = (targetPos - (Vector2)Parent.transform.position).normalized;
+//             rb.velocity = dir * attr.MoveSpeed;
+//         }
 
-        void HandleColEnter(Collision2D other)
-        {
-            if (other.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
-                Parent.gameObject.SetActive(false);
-            FindNewTarget();
+//         void FindNewTarget() => targetPos = new Vector2(Random.Range(-attr.MoveRange, attr.MoveRange), Parent.transform.position.y);
 
-        }
-    }
+//         void HandleColEnter(Collision2D other) => FindNewTarget();
+//     }
 
 
-    class DiamondShoot : AEnemyComponent
-    {
-        ScaledTimer timer = null;
-        DiamondAttribute attr = null;
-        public DiamondShoot(DiamondAttribute attr, AEnemy parent) : base(parent)
-        {
-            this.attr = attr;
-            timer = new ScaledTimer(attr.ShootCd);
-        }
+//     class DiamondShoot : AEnemyComponent
+//     {
+//         ScaledTimer timer = null;
+//         DiamondAttribute attr = null;
+//         public DiamondShoot(DiamondAttribute attr, AEnemy parent) : base(parent)
+//         {
+//             this.attr = attr;
+//             timer = new ScaledTimer(attr.ShootCd);
+//         }
 
-        public override void Tick()
-        {
-            if (timer.IsFinished)
-            {
-                timer.Reset();
-                LeanPool.Spawn(attr.BulletPrefab, Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, -attr.BulletVel), EBULLET_TYPE.ENEMY);
-            }
-        }
-    }
+//         public override void Tick()
+//         {
+//             if (timer.IsFinished)
+//             {
+//                 timer.Reset();
+//                 LeanPool.Spawn(attr.BulletPrefab, Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, -attr.BulletVel), EBulletType.ENEMY, attr.Damage);
+//             }
+//         }
+//     }
 
-    [System.Serializable]
-    class DiamondAttribute
-    {
-        [SerializeField] float moveRange = 0f;
-        [SerializeField] float moveSpeed = 3f;
-        [SerializeField] float shootCd = 1f;
-        [SerializeField] GameObject bulletPrefab = null;
-        [SerializeField] float bulletVel = 3f;
-        public float MoveRange => moveRange;
-        public float MoveSpeed => moveSpeed;
-        public float ShootCd => shootCd;
-        public GameObject BulletPrefab => bulletPrefab;
-        public float BulletVel => bulletVel;
-    }
-}
+//     [System.Serializable]
+//     class DiamondAttribute : BasicEnemyAttribute
+//     {
+//         [SerializeField] float moveRange = 0f;
+//         [SerializeField] float moveSpeed = 3f;
+//         [SerializeField] float shootCd = 1f;
+//         [SerializeField] GameObject bulletPrefab = null;
+//         [SerializeField] float bulletVel = 3f;
+//         [SerializeField] int damage = 10;
+//         public float MoveRange => moveRange;
+//         public float MoveSpeed => moveSpeed;
+//         public float ShootCd => shootCd;
+//         public GameObject BulletPrefab => bulletPrefab;
+//         public float BulletVel => bulletVel;
+//         public int Damage => damage;
+//     }
+// }

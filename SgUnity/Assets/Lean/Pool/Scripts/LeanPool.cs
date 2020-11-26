@@ -160,7 +160,7 @@ namespace Lean.Pool
 					}
 					else
 					{
-						Debug.LogWarning("You're attempting to despawn a gameObject that wasn't spawned from this pool", clone);
+						//Debug.LogWarning("You're attempting to despawn a gameObject that wasn't spawned from this pool", clone);
 
 						// Fall back to normal destroying
 #if UNITY_EDITOR

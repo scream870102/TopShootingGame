@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -13,6 +14,7 @@ TagManager:
   - UI
   - 
   - 
+  - PostProcessing
   - Player
   - PlayerBullet
   - Enemy
@@ -36,8 +38,10 @@ TagManager:
   - 
   - 
   - 
-  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 2109113383
     locked: 0
