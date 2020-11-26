@@ -30,7 +30,7 @@ namespace SgUnity.Enemy
     }
     abstract class TriangleComponent : AEnemyComponent
     {
-        public TriangleComponent(TriangleAttribute attr, AEnemy parent) : base(parent) => this.Attr = attr;
+        public TriangleComponent(TriangleAttribute attr, AEnemy parent) : base(parent) => Attr = attr;
         public TriangleAttribute Attr { get; set; }
     }
 
@@ -41,12 +41,12 @@ namespace SgUnity.Enemy
         Vector2 dir = default(Vector2);
         public TriangleMove(TriangleAttribute attr, AEnemy parent) : base(attr, parent) {
             Triangle triangle = parent as Triangle;
-            triangle.OnColEnter += HandleColEnter;
+            triangle.OnTriEnter += HandleTriEnter;
             rb = triangle.Rb;
         }
 
         ~TriangleMove() {
-            (Parent as Triangle).OnColEnter -= HandleColEnter;
+            (Parent as Triangle).OnTriEnter -= HandleTriEnter;
         }
 
         public override void HandleEnable() {
@@ -57,8 +57,8 @@ namespace SgUnity.Enemy
         public override void HandleDisable() { }
         public override void Tick() { }
 
-        void HandleColEnter(Collision2D other) {
-            if (other.gameObject.tag != "Wall")
+        void HandleTriEnter(Collider2D other) {
+            if (!other.gameObject.CompareTag("Wall"))
                 return;
             bStartFromRight = !bStartFromRight;
             Init();

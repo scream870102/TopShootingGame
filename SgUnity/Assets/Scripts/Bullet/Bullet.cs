@@ -23,11 +23,11 @@ namespace SgUnity
             switch (type)
             {
                 case EBulletType.PLAYER:
-                    this.gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
+                    gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
                     sr.color = new Color(1f, .49f, .64f);
                     break;
                 case EBulletType.ENEMY:
-                    this.gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
+                    gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
                     sr.color = new Color(.16f, .61f, .41f);
                     break;
             }
@@ -35,21 +35,17 @@ namespace SgUnity
             rb.velocity = vel;
         }
 
-        void OnEnable() { }
-
         void OnDisable() {
             rb.velocity = Vector2.zero;
             col.enabled = false;
         }
 
-
-        void OnCollisionEnter2D(Collision2D other) {
+        void OnTriggerEnter2D(Collider2D other) {
             DomainEvents.Raise<OnBulletHit>(new OnBulletHit(other.gameObject, damage, type));
-            LeanPool.Despawn(this.gameObject);
+            LeanPool.Despawn(gameObject);
         }
-
-
     }
+    
     enum EBulletType
     {
         PLAYER,
@@ -62,9 +58,9 @@ namespace SgUnity
         public int Damage { get; private set; }
         public EBulletType Type { get; private set; }
         public OnBulletHit(GameObject objectHit, int damage, EBulletType type) {
-            this.ObjectHit = objectHit;
-            this.Damage = damage;
-            this.Type = type;
+            ObjectHit = objectHit;
+            Damage = damage;
+            Type = type;
         }
     }
 }

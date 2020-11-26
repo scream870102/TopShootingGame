@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3672458741749903170}
   - component: {fileID: 4893569441941027246}
-  - component: {fileID: 7795450056923144585}
+  - component: {fileID: 114995930302890436}
   - component: {fileID: 4524411387467430588}
   - component: {fileID: 3234385068474785625}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: ChaseBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 78c66afec64ca30438d8b72e2d56361c, type: 3}
-  m_Color: {r: 0.8962264, g: 0.30860624, b: 0.47403806, a: 1}
+  m_Color: {r: 0.58425033, g: 0.2272161, b: 0.6981132, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7795450056923144585
+--- !u!114 &114995930302890436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2730283863055537985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f74b45e421113c7418edf69240d0b7fe, type: 3}
+  m_Script: {fileID: 11500000, guid: c409549d65d9ed441b1cba088cb1dd7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!50 &4524411387467430588

@@ -31,7 +31,7 @@ namespace SgUnity.Enemy
     }
     abstract class SquareComponent : AEnemyComponent
     {
-        public SquareComponent(SquareAttribute attr, AEnemy parent) : base(parent) => this.Attr = attr;
+        public SquareComponent(SquareAttribute attr, AEnemy parent) : base(parent) => Attr = attr;
         public SquareAttribute Attr { get; set; }
     }
 
@@ -46,7 +46,7 @@ namespace SgUnity.Enemy
 
         ~SquareMove() { }
         public override void HandleEnable() {
-            timer.Reset(this.Attr.PosInterval);
+            timer.Reset(Attr.PosInterval);
             posQueue.Clear();
             foreach (int i in Attr.PosList)
                 posQueue.Enqueue(i);
@@ -63,7 +63,7 @@ namespace SgUnity.Enemy
                 timer.Reset(Attr.PosInterval);
             }
         }
-        public void SetPosList(List<Transform> spawnPoints) => this.posList = new List<Transform>(spawnPoints);
+        public void SetPosList(List<Transform> spawnPoints) => posList = new List<Transform>(spawnPoints);
     }
     class SquareShoot : SquareComponent
     {

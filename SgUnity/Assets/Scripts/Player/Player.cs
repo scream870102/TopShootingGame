@@ -6,7 +6,7 @@ namespace SgUnity.Player
 {
     class Player : MonoBehaviour
     {
-        [ReadOnly] [SerializeField] int hp = 100;
+        [SerializeField] int hp = 100;
         [SerializeField] ShootAttribute shootAttr = null;
         [SerializeField] MoveAttribute moveAttribute = null;
         List<PlayerComponent> components = new List<PlayerComponent>();
@@ -23,13 +23,17 @@ namespace SgUnity.Player
             components.Add(new Move(moveAttribute, this));
         }
 
+        void Start() {
+            DomainEvents.Raise<OnPlayerHPInit>(new OnPlayerHPInit(hp));
+        }
+
         void Update() {
             foreach (PlayerComponent o in components)
                 o.Tick();
         }
 
         void HandleBulletHit(OnBulletHit e) {
-            if (e.Type != EBulletType.ENEMY || e.ObjectHit != this.gameObject)
+            if (e.Type != EBulletType.ENEMY || e.ObjectHit != gameObject)
                 return;
             hp -= e.Damage;
             hp = hp < 0 ? 0 : hp;
@@ -48,7 +52,13 @@ namespace SgUnity.Player
     class OnPlayerHPChange : IDomainEvent
     {
         public int HP { get; private set; }
-        public OnPlayerHPChange(int newHP) => this.HP = newHP < 0 ? 0 : newHP;
+        public OnPlayerHPChange(int newHP) => HP = newHP < 0 ? 0 : newHP;
+    }
+
+    class OnPlayerHPInit : IDomainEvent
+    {
+        public int MaxHP { get; private set; }
+        public OnPlayerHPInit(int maxHP) => MaxHP = maxHP;
     }
 
 }

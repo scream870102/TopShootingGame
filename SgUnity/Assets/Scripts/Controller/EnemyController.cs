@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Lean.Pool;
+using Eccentric;
+using SgUnity.Enemy.Boss;
 namespace SgUnity
 {
     class EnemyController : MonoBehaviour
@@ -14,11 +16,18 @@ namespace SgUnity
         [SerializeField] List<SquareAttribute> squareAttributes = new List<SquareAttribute>();
         [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] List<GameObject> activeEnemies = new List<GameObject>();
+        [SerializeField] Boss boss = null;
         void Awake() {
             //add all spawnPoint to list
             for (int i = 0; i < transform.childCount; i++)
                 spawnPoint.Add(transform.GetChild(i));
             GetAllAttributes();
+            boss.gameObject.SetActive(false);
+        }
+
+        void ActiveBossFight() {
+            boss.gameObject.SetActive(true);
+            DomainEvents.Raise<OnBossFightStart>(new OnBossFightStart(boss.MaxHP));
         }
 
         void SpawnEnemyAE(string s) {
@@ -36,11 +45,7 @@ namespace SgUnity
                 case EEnemyType.SQUARE:
                     Square sq = o.GetComponent<Square>();
                     sq.PosList = new List<Transform>(spawnPoint);
-                    // sq.PosList = new List<Transform>();
-                    // foreach (Transform tf in spawnPoint)
-                    //     sq.PosList.Add(tf);
-                    sq.SetAttribute(squareAttributes[spawnEvent.settingIndex],spawnPoint);
-
+                    sq.SetAttribute(squareAttributes[spawnEvent.settingIndex], spawnPoint);
                     o.SetActive(true);
                     break;
                 case EEnemyType.DIAMOND:
@@ -89,6 +94,11 @@ namespace SgUnity
             startPosIndex = int.Parse(matches[0].Groups[3].Value) - 1;
         }
 
+    }
+    class OnBossFightStart : IDomainEvent
+    {
+        public int HP { get; private set; }
+        public OnBossFightStart(int hp) => HP = hp;
     }
 
 

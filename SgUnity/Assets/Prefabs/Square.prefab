@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4383781770662526306}
   - component: {fileID: 5247914241178608533}
   - component: {fileID: 1396254911494850130}
-  - component: {fileID: 6126076744957855209}
   - component: {fileID: 719999048603884842}
   m_Layer: 11
   m_Name: Square
@@ -68,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2109113383
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4101cdf33d4726a468906eb39415fd25, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,27 +105,6 @@ MonoBehaviour:
     ShootCd: 1
     BulletVel: 3
     Damage: 10
---- !u!50 &6126076744957855209
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3712882998951282666}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &719999048603884842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,7 +115,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

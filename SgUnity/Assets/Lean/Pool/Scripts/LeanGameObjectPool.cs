@@ -263,7 +263,7 @@ namespace Lean.Pool
 						return true;
 					}
 
-					if (Warnings == true) Debug.LogWarning("This pool contained a null despawned clone, did you accidentally destroy it?", this);
+					//if (Warnings == true) Debug.LogWarning("This pool contained a null despawned clone, did you accidentally destroy it?", this);
 				}
 
 				// Make a new clone?
