@@ -3,6 +3,8 @@ using P = SgUnity.Player;
 using UnityEngine;
 using Cinemachine;
 using System.Collections;
+using SgUnity.Enemy;
+using Lean.Pool;
 namespace SgUnity
 {
     class GameManager : TSingletonMonoBehavior<GameManager>
@@ -10,6 +12,8 @@ namespace SgUnity
         [SerializeField] CinemachineVirtualCamera cam = null;
         [SerializeField] float amplitude = 0f;
         [SerializeField] float frequency = 0f;
+        [SerializeField] GameObject diePtc = null;
+        [SerializeField] GameObject hitPtc = null;
         CinemachineBasicMultiChannelPerlin noise = null;
         public P.Player Player { get; private set; } = null;
         void Start() {
@@ -37,6 +41,8 @@ namespace SgUnity
                 StartCameraShake(3f);
             }
         }
+
+        void HandleEnemyDead(OnEnemyDead e) { }
 
     }
 }

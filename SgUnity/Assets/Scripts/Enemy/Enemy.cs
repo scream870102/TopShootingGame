@@ -72,7 +72,7 @@ namespace SgUnity.Enemy
             if (hp == 0)
             {
                 LeanPool.Despawn(gameObject);
-                DomainEvents.Raise<OnEnemyDead>(new OnEnemyDead(score));
+                DomainEvents.Raise<OnEnemyDead>(new OnEnemyDead(score, transform));
             }
 
         }
@@ -104,7 +104,11 @@ namespace SgUnity.Enemy
     class OnEnemyDead : IDomainEvent
     {
         public int Score { get; private set; }
-        public OnEnemyDead(int score) => Score = score;
+        public Transform Transform { get; private set; }
+        public OnEnemyDead(int score, Transform transform) {
+            Score = score;
+            Transform = transform;
+        }
     }
 
 }
