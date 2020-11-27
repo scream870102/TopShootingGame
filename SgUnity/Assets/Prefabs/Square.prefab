@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3712882998951282666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2572759, y: 1.2572759, z: 1.2572759}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_SortingLayerID: 2109113383
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4101cdf33d4726a468906eb39415fd25, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bcc1e3d47dd4dd145aafc40a844ebd8a, type: 3}
+  m_Color: {r: 0.8867924, g: 0.52287287, b: 0.8085068, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,6 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2730283863055537985, guid: edd56343cb7424349a7f0e387f74cc5a,
     type: 3}
+  hitPtc: {fileID: 3101435395475239343, guid: 2636d8f6a998dd3428dc04f4ee949d1a, type: 3}
+  diePtc: {fileID: 1201931788097130276, guid: 0207c91cd5ad32348a063bb25244e7a1, type: 3}
   score: 0
   hp: 0
   attr:
@@ -115,7 +117,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -129,5 +131,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.94, y: 0.94}
   m_EdgeRadius: 0

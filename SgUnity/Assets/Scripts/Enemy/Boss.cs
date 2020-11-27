@@ -44,9 +44,11 @@ namespace SgUnity.Enemy.Boss
             DomainEvents.Raise<OnBossHPChange>(new OnBossHPChange(hp));
             if (hp == 0)
             {
-                DomainEvents.Raise<OnBossDie>(new OnBossDie());
+                LeanPool.Spawn(DiePtc, transform.position, Quaternion.identity).GetComponent<ParticleSystem>().Play();
+                DomainEvents.Raise<OnBossDie>(new OnBossDie(attr.Score));
                 gameObject.SetActive(false);
             }
+            LeanPool.Spawn(HitPtc, e.PosHit, Quaternion.identity).GetComponent<ParticleSystem>().Play();
         }
     }
     abstract class BossComponent : AEnemyComponent
@@ -94,6 +96,7 @@ namespace SgUnity.Enemy.Boss
 
         void HandleBossStage2(OnBossStage2 e) {
             attacks.Add(new Chaser(Attr.ChaserAttr, this));
+            attacks.Add(new Wave(Attr.WaveAttr, this));
         }
 
         AAttack ChooseAttack(List<AAttack> avaliable) {
@@ -110,6 +113,63 @@ namespace SgUnity.Enemy.Boss
             return null;
         }
     }
+    class Wave : AAttack
+    {
+        float vel = 0;
+        float cd = 0f;
+        float elapsed = 0f;
+        float intervalDegree = 0f;
+        float maxDegree = 0f;
+        ScaledTimer elapsedTimer = null;
+        ScaledTimer cdTimer = null;
+        public Wave(WaveAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst) {
+            vel = attr.Vel;
+            cd = attr.CD;
+            elapsed = attr.Elapsed;
+            intervalDegree = attr.IntervalDegree;
+            maxDegree = attr.MaxDegree;
+        }
+
+        public override void Init() {
+            base.Init();
+            elapsedTimer = new ScaledTimer(elapsed, false);
+            cdTimer = new ScaledTimer(cd);
+        }
+
+        public override void Tick() {
+            if (elapsedTimer.IsFinished)
+                IsFinished = true;
+            if (cdTimer.IsFinished)
+            {
+                Shoot();
+                cdTimer.Reset(cd);
+            }
+        }
+
+        void Shoot() {
+            LeanPool.Spawn(Controller.Parent.BulletPrefab, Controller.Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().
+                Shoot(Vector2.down * vel, EBulletType.ENEMY, Damage);
+            for (int i = 1; i <= maxDegree / intervalDegree; i++)
+            {
+                LeanPool.Spawn(Controller.Parent.BulletPrefab, Controller.Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().
+                    Shoot(Math.GetDirectionFromDeg(intervalDegree * -i + 270f) * vel, EBulletType.ENEMY, Damage);
+                LeanPool.Spawn(Controller.Parent.BulletPrefab, Controller.Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().
+                Shoot(Math.GetDirectionFromDeg(intervalDegree * i + 270f) * vel, EBulletType.ENEMY, Damage);
+            }
+        }
+    }
+
+    [System.Serializable]
+    class WaveAttr : BasicAttackAttr
+    {
+        public float Vel = 3f;
+        public float CD = 2f;
+        public float Elapsed = 6f;
+        public float IntervalDegree = 20f;
+        [Range(0f, 180f)]
+        public float MaxDegree = 90f;
+    }
+
     class Spiral : AAttack
     {
         float vel = 0;
@@ -263,9 +323,12 @@ namespace SgUnity.Enemy.Boss
     [System.Serializable]
     class BossAttribute : BasicEnemyAttribute
     {
+        [Header("Stage 1")]
         public ShotgunAttr ShotgunAttr = null;
-        public ChaserAttr ChaserAttr = null;
         public SpiralAttr SpiralAttr = null;
+        [Header("Stage 2")]
+        public ChaserAttr ChaserAttr = null;
+        public WaveAttr WaveAttr = null;
     }
 
     abstract class AAttack
@@ -308,7 +371,8 @@ namespace SgUnity.Enemy.Boss
 
     class OnBossDie : IDomainEvent
     {
-        public OnBossDie() { }
+        public int Score { get; private set; }
+        public OnBossDie(int score) => Score = score;
     }
 
     class OnBossStage2 : IDomainEvent

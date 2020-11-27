@@ -4,6 +4,7 @@ using UnityEngine;
 using Eccentric.Utils;
 using Lean.Pool;
 using System.Collections.Generic;
+using System.Linq;
 namespace SgUnity.Enemy
 {
     class Square : AEnemy
@@ -16,17 +17,14 @@ namespace SgUnity.Enemy
             components.Add(new SquareShoot(attr, this));
         }
 
-        void Update() {
-            foreach (AEnemyComponent o in components)
-                o.Tick();
-        }
+        void Update() => components.ForEach(o=>o.Tick());
+            
         public void SetAttribute(SquareAttribute attr, List<Transform> spawnPoint) {
             PosList = new List<Transform>(spawnPoint);
             (components[0] as SquareMove).SetPosList(PosList);
             this.attr = attr;
             Init(this.attr as BasicEnemyAttribute);
-            foreach (AEnemyComponent o in components)
-                (o as SquareComponent).Attr = this.attr;
+            components.ForEach(o => (o as SquareComponent).Attr = this.attr);
         }
     }
     abstract class SquareComponent : AEnemyComponent
@@ -40,16 +38,13 @@ namespace SgUnity.Enemy
         List<Transform> posList = new List<Transform>();
         ScaledTimer timer = null;
         Queue<int> posQueue = new Queue<int>();
-        public SquareMove(SquareAttribute attr, AEnemy parent) : base(attr, parent) {
-            timer = new ScaledTimer(attr.PosInterval);
-        }
+        public SquareMove(SquareAttribute attr, AEnemy parent) : base(attr, parent) => timer = new ScaledTimer(attr.PosInterval);
 
         ~SquareMove() { }
         public override void HandleEnable() {
             timer.Reset(Attr.PosInterval);
             posQueue.Clear();
-            foreach (int i in Attr.PosList)
-                posQueue.Enqueue(i);
+            Attr.PosList.ForEach(i => posQueue.Enqueue(i));
         }
 
         public override void HandleDisable() { }
@@ -68,9 +63,7 @@ namespace SgUnity.Enemy
     class SquareShoot : SquareComponent
     {
         ScaledTimer timer = null;
-        public SquareShoot(SquareAttribute attr, AEnemy parent) : base(attr, parent) {
-            timer = new ScaledTimer(attr.ShootCd);
-        }
+        public SquareShoot(SquareAttribute attr, AEnemy parent) : base(attr, parent) => timer = new ScaledTimer(attr.ShootCd);
 
         public override void Tick() {
             if (timer.IsFinished)
@@ -83,7 +76,7 @@ namespace SgUnity.Enemy
             }
         }
 
-        public override void HandleEnable() { }
+        public override void HandleEnable() => timer.Reset(Attr.ShootCd);
         public override void HandleDisable() { }
     }
 

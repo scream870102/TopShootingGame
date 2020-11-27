@@ -7,6 +7,7 @@ using System.IO;
 using Lean.Pool;
 using Eccentric;
 using SgUnity.Enemy.Boss;
+using System.Linq;
 namespace SgUnity
 {
     class EnemyController : MonoBehaviour
@@ -14,6 +15,7 @@ namespace SgUnity
         [SerializeField] List<Transform> spawnPoint = new List<Transform>();
         [SerializeField] List<TriangleAttribute> triangleAttributes = new List<TriangleAttribute>();
         [SerializeField] List<SquareAttribute> squareAttributes = new List<SquareAttribute>();
+        [SerializeField] List<HexagonAttribute> hexagonAttributes = new List<HexagonAttribute>();
         [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] List<GameObject> activeEnemies = new List<GameObject>();
         [SerializeField] Boss boss = null;
@@ -48,7 +50,10 @@ namespace SgUnity
                     sq.SetAttribute(squareAttributes[spawnEvent.settingIndex], spawnPoint);
                     o.SetActive(true);
                     break;
-                case EEnemyType.DIAMOND:
+                case EEnemyType.HEXAGON:
+                    Hexagon hex = o.GetComponent<Hexagon>();
+                    hex.SetAttribute(hexagonAttributes[spawnEvent.settingIndex]);
+                    o.SetActive(true);
                     break;
                 case EEnemyType.BOSS:
                     break;
@@ -74,6 +79,8 @@ namespace SgUnity
                     triangleAttributes.Add(JsonUtility.FromJson<TriangleAttribute>(file.OpenText().ReadToEnd()));
                 else if (type == "SQUARE")
                     squareAttributes.Add(JsonUtility.FromJson<SquareAttribute>(file.OpenText().ReadToEnd()));
+                else if (type == "HEXAGON")
+                    hexagonAttributes.Add(JsonUtility.FromJson<HexagonAttribute>(file.OpenText().ReadToEnd()));
 
             }
         }

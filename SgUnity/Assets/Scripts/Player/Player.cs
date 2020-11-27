@@ -42,7 +42,10 @@ namespace SgUnity.Player
             hp = hp < 0 ? 0 : hp;
             DomainEvents.Raise<OnPlayerHPChange>(new OnPlayerHPChange(hp));
             if (hp == 0)
+            {
                 DomainEvents.Raise<OnPlayerDead>(new OnPlayerDead());
+                gameObject.SetActive(false);
+            }
         }
 
     }

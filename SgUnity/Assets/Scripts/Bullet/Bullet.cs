@@ -5,6 +5,8 @@ namespace SgUnity
 {
     class Bullet : MonoBehaviour
     {
+        [SerializeField] Color enemyColor = default(Color);
+        [SerializeField] Color playerColor = default(Color);
         Rigidbody2D rb = null;
         Collider2D col = null;
         SpriteRenderer sr = null;
@@ -24,11 +26,11 @@ namespace SgUnity
             {
                 case EBulletType.PLAYER:
                     gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
-                    sr.color = new Color(1f, .49f, .64f);
+                    sr.color = playerColor;
                     break;
                 case EBulletType.ENEMY:
                     gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
-                    sr.color = new Color(.16f, .61f, .41f);
+                    sr.color = enemyColor;
                     break;
             }
             col.enabled = true;
@@ -41,11 +43,11 @@ namespace SgUnity
         }
 
         void OnTriggerEnter2D(Collider2D other) {
-            DomainEvents.Raise<OnBulletHit>(new OnBulletHit(other.gameObject, damage, type));
+            DomainEvents.Raise<OnBulletHit>(new OnBulletHit(other.gameObject, damage, type, transform.position));
             LeanPool.Despawn(gameObject);
         }
     }
-    
+
     enum EBulletType
     {
         PLAYER,
@@ -57,10 +59,12 @@ namespace SgUnity
         public GameObject ObjectHit { get; private set; }
         public int Damage { get; private set; }
         public EBulletType Type { get; private set; }
-        public OnBulletHit(GameObject objectHit, int damage, EBulletType type) {
+        public Vector3 PosHit { get; private set; }
+        public OnBulletHit(GameObject objectHit, int damage, EBulletType type, Vector3 posHit) {
             ObjectHit = objectHit;
             Damage = damage;
             Type = type;
+            PosHit = posHit;
         }
     }
 }
