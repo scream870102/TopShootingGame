@@ -7,7 +7,6 @@ using System.IO;
 using Lean.Pool;
 using Eccentric;
 using SgUnity.Enemy.Boss;
-using System.Linq;
 namespace SgUnity
 {
     class EnemyController : MonoBehaviour
@@ -31,7 +30,7 @@ namespace SgUnity
             boss.gameObject.SetActive(true);
             DomainEvents.Raise<OnBossFightStart>(new OnBossFightStart(boss.MaxHP));
         }
-
+        public void SpawnEnemy(string command) => SpawnEnemyAE(command);
         void SpawnEnemyAE(string s) {
             EnemySpawnEvent spawnEvent = new EnemySpawnEvent(s);
             GameObject o = LeanPool.Spawn(enemyPrefabs[(int)spawnEvent.type], spawnPoint[spawnEvent.startPosIndex].position, Quaternion.identity);
@@ -70,7 +69,7 @@ namespace SgUnity
 
         void GetAllAttributes() {
             //load all enemy setting from Application.DATAPATH 
-            DirectoryInfo di = new DirectoryInfo(Application.dataPath);
+            DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
             FileInfo[] Files = di.GetFiles("*.json");
             foreach (FileInfo file in Files)
             {

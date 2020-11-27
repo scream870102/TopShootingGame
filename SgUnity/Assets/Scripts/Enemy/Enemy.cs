@@ -12,8 +12,8 @@ namespace SgUnity.Enemy
         [SerializeField] GameObject bulletPrefab = null;
         [SerializeField] GameObject hitPtc = null;
         [SerializeField] GameObject diePtc = null;
-        [ReadOnly] [SerializeField] protected int score = 0;
-        [ReadOnly] [SerializeField] protected int hp = 0;
+        [SerializeField] protected int score = 0;
+        [SerializeField] protected int hp = 0;
         public GameObject BulletPrefab => bulletPrefab;
         protected GameObject HitPtc => hitPtc;
         protected GameObject DiePtc => diePtc;

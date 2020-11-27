@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System;
 using System.IO;
 using Eccentric.Utils;
-using UnityEngine.UI;
+using SgUnity.Enemy.Boss;
 using UnityEditor;
 #if UNITY_EDITOR
 namespace SgUnity
@@ -18,14 +18,18 @@ namespace SgUnity
         [SerializeField] SquareAttribute SQ = null;
         [SerializeField] string XG_FILENAME = "NONE";
         [SerializeField] HexagonAttribute XG = null;
+        [SerializeField] string BOSS_FILENAME = "NONE";
+        [SerializeField] BossAttribute BOSS = null;
 
         public void Reset() {
             TA_FILENAME = "NONE";
             SQ_FILENAME = "NONE";
             XG_FILENAME = "NONE";
+            BOSS_FILENAME = "NONE";
             TA = new TriangleAttribute();
             SQ = new SquareAttribute();
             XG = new HexagonAttribute();
+            BOSS = new BossAttribute();
         }
 
         public void Apply() {
@@ -66,6 +70,20 @@ namespace SgUnity
                 {
                     FileStream fs = new FileStream(path, FileMode.Create);
                     string fileContext = JsonUtility.ToJson(XG);
+                    StreamWriter file = new StreamWriter(fs);
+                    file.Write(fileContext);
+                    file.Close();
+                    Debug.Log($"{path} created");
+                }
+            }
+            if (BOSS_FILENAME != "NONE")
+            {
+                string path = PATH + "/" + BOSS_FILENAME;
+
+                if (!File.Exists(path))
+                {
+                    FileStream fs = new FileStream(path, FileMode.Create);
+                    string fileContext = JsonUtility.ToJson(BOSS);
                     StreamWriter file = new StreamWriter(fs);
                     file.Write(fileContext);
                     file.Close();

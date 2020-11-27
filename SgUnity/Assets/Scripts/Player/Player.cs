@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Eccentric;
-using Eccentric.Utils;
 namespace SgUnity.Player
 {
     class Player : MonoBehaviour

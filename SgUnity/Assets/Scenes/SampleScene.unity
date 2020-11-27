@@ -560,9 +560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6831e0a92c144b44b06639423e9f695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bBossDie: 0
-  bPlayerDie: 0
-  cam: {fileID: 1398145132}
   amplitude: 0.9
   frequency: 5
 --- !u!4 &337864012
@@ -1374,7 +1371,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!1 &846594945
 GameObject:
@@ -1922,6 +1919,59 @@ MonoBehaviour:
     IntervalDegreeBetweenBullet: 30
     BulletNum: 3
     Damage: 10
+  BOSS_FILENAME: BOSS.json
+  BOSS:
+    Score: 1000
+    HP: 2500
+    MoveRange: 3
+    MoveSpeed: 3
+    MoveInterval: 1
+    ShotgunAttr:
+      Probability: 50
+      Interval: 3
+      Damage: 30
+      Vel: 10
+      CD: 0.5
+      Elapsed: 3
+      Degree: 150
+      NumOfBullets: 7
+    SpiralAttr:
+      Probability: 50
+      Interval: 3
+      Damage: 100
+      Vel: 6
+      CD: 0.1
+      Elapsed: 5
+      IntervalDegree: 30
+    CalloutAttr:
+      Probability: 100
+      Interval: 10
+      Damage: 0
+      MaxCommand: 4
+      Commands:
+      - HEXAGON\\1\\8
+      - HEXAGON\\1\\6
+      - TRIANGLE\\1\\5
+      - TRIANGLE\\2\\6
+      - SQUARE\\2\\4
+      - SQUARE\\4\\3
+    ChaserAttr:
+      Probability: 150
+      Interval: 3
+      Damage: 20
+      Vel: 3
+      CD: 0.1
+      Elapsed: 5
+      ChaseTime: 3
+    WaveAttr:
+      Probability: 200
+      Interval: 6
+      Damage: 30
+      Vel: 5
+      CD: 1
+      Elapsed: 6
+      IntervalDegree: 15
+      MaxDegree: 120
 --- !u!1 &1287358114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,6 +2090,7 @@ GameObject:
   - component: {fileID: 1332947476}
   - component: {fileID: 1332947478}
   - component: {fileID: 1332947479}
+  - component: {fileID: 1332947480}
   m_Layer: 13
   m_Name: Boss
   m_TagString: Untagged
@@ -2127,9 +2178,13 @@ MonoBehaviour:
   diePtc: {fileID: 2373661165426787263, guid: 7ba1ae925123e214aa4471c50555cdae, type: 3}
   score: 0
   hp: 0
+  enemyController: {fileID: 2009748185}
   attr:
     Score: 1000
     HP: 2500
+    MoveRange: 3
+    MoveSpeed: 3
+    MoveInterval: 1
     ShotgunAttr:
       Probability: 50
       Interval: 3
@@ -2147,8 +2202,20 @@ MonoBehaviour:
       CD: 0.1
       Elapsed: 5
       IntervalDegree: 30
-    ChaserAttr:
+    CalloutAttr:
       Probability: 100
+      Interval: 10
+      Damage: 0
+      MaxCommand: 6
+      Commands:
+      - HEXAGON\\1\\8
+      - HEXAGON\\1\\6
+      - TRIANGLE\\1\\5
+      - TRIANGLE\\2\\6
+      - SQUARE\\2\\4
+      - SQUARE\\4\\3
+    ChaserAttr:
+      Probability: 150
       Interval: 3
       Damage: 20
       Vel: 3
@@ -2159,8 +2226,8 @@ MonoBehaviour:
       Probability: 200
       Interval: 6
       Damage: 30
-      Vel: 3
-      CD: 1.5
+      Vel: 5
+      CD: 1
       Elapsed: 6
       IntervalDegree: 15
       MaxDegree: 120
@@ -2194,6 +2261,27 @@ PolygonCollider2D:
     - - {x: 1.9137435, y: 1.5025482}
       - {x: -1.9226624, y: 1.5041232}
       - {x: 0.00693189, y: -1.821268}
+--- !u!50 &1332947480
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332947475}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &1344269470
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,7 +2443,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7785349, y: 1}
+    m_SensorSize: {x: 1.7775666, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
