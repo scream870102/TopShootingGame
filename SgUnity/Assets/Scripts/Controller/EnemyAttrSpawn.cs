@@ -16,12 +16,16 @@ namespace SgUnity
         [SerializeField] TriangleAttribute TA = null;
         [SerializeField] string SQ_FILENAME = "NONE";
         [SerializeField] SquareAttribute SQ = null;
+        [SerializeField] string XG_FILENAME = "NONE";
+        [SerializeField] HexagonAttribute XG = null;
 
         public void Reset() {
             TA_FILENAME = "NONE";
             SQ_FILENAME = "NONE";
+            XG_FILENAME = "NONE";
             TA = new TriangleAttribute();
             SQ = new SquareAttribute();
+            XG = new HexagonAttribute();
         }
 
         public void Apply() {
@@ -48,6 +52,20 @@ namespace SgUnity
                 {
                     FileStream fs = new FileStream(path, FileMode.Create);
                     string fileContext = JsonUtility.ToJson(SQ);
+                    StreamWriter file = new StreamWriter(fs);
+                    file.Write(fileContext);
+                    file.Close();
+                    Debug.Log($"{path} created");
+                }
+            }
+            if (XG_FILENAME != "NONE")
+            {
+                string path = PATH + "/" + XG_FILENAME;
+
+                if (!File.Exists(path))
+                {
+                    FileStream fs = new FileStream(path, FileMode.Create);
+                    string fileContext = JsonUtility.ToJson(XG);
                     StreamWriter file = new StreamWriter(fs);
                     file.Write(fileContext);
                     file.Close();

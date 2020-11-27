@@ -10,10 +10,10 @@ namespace SgUnity
     {
         int score = 0;
         [SerializeField] Slider playerHPSlider = null;
-        [SerializeField] Text hpText = null;
         [SerializeField] Text scoreText = null;
         [SerializeField] GameObject bossCanvas = null;
         [SerializeField] Slider bossHP = null;
+        [SerializeField] Text congraText = null;
         void OnEnable() {
             DomainEvents.Register<OnPlayerHPChange>(HandlePlayerHPChange);
             DomainEvents.Register<OnPlayerDead>(HandlePlayerDead);
@@ -37,7 +37,8 @@ namespace SgUnity
 
         void HandlePlayerDead(OnPlayerDead e) {
             playerHPSlider.gameObject.SetActive(false);
-            hpText.text = "Die die die";
+            congraText.text = "GAME OVER";
+            congraText.gameObject.SetActive(true);
         }
 
         void HandleEnemyDead(OnEnemyDead e) {
@@ -56,8 +57,11 @@ namespace SgUnity
         }
 
         void HandleBossDie(OnBossDie e) {
-            hpText.text = "Win win win";
+            congraText.text = "Congratulation";
+            congraText.gameObject.SetActive(true);
             bossCanvas.SetActive(false);
+            score += e.Score;
+            scoreText.text = score.ToString();
         }
 
         void HandlePlayerHPInit(OnPlayerHPInit e) {

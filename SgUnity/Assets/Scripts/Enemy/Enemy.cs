@@ -10,9 +10,13 @@ namespace SgUnity.Enemy
     abstract class AEnemy : MonoBehaviour
     {
         [SerializeField] GameObject bulletPrefab = null;
-        public GameObject BulletPrefab => bulletPrefab;
+        [SerializeField] GameObject hitPtc = null;
+        [SerializeField] GameObject diePtc = null;
         [ReadOnly] [SerializeField] protected int score = 0;
         [ReadOnly] [SerializeField] protected int hp = 0;
+        public GameObject BulletPrefab => bulletPrefab;
+        protected GameObject HitPtc => hitPtc;
+        protected GameObject DiePtc => diePtc;
         public event System.Action<Collision2D> OnColEnter;
         public event System.Action<Collision2D> OnColStay;
         public event System.Action<Collision2D> OnColExit;
@@ -72,9 +76,10 @@ namespace SgUnity.Enemy
             if (hp == 0)
             {
                 LeanPool.Despawn(gameObject);
-                DomainEvents.Raise<OnEnemyDead>(new OnEnemyDead(score));
+                LeanPool.Spawn(diePtc, transform.position, Quaternion.identity).GetComponent<ParticleSystem>().Play();
+                DomainEvents.Raise<OnEnemyDead>(new OnEnemyDead(score, transform));
             }
-
+            LeanPool.Spawn(hitPtc, transform.position, Quaternion.identity).GetComponent<ParticleSystem>().Play();
         }
     }
     abstract class AEnemyComponent
@@ -97,14 +102,18 @@ namespace SgUnity.Enemy
         NONE,
         TRIANGLE,
         SQUARE,
-        DIAMOND,
+        HEXAGON,
         BOSS,
     }
 
     class OnEnemyDead : IDomainEvent
     {
         public int Score { get; private set; }
-        public OnEnemyDead(int score) => Score = score;
+        public Transform Transform { get; private set; }
+        public OnEnemyDead(int score, Transform transform) {
+            Score = score;
+            Transform = transform;
+        }
     }
 
 }

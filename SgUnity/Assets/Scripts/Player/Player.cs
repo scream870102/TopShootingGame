@@ -6,11 +6,12 @@ namespace SgUnity.Player
 {
     class Player : MonoBehaviour
     {
+        [SerializeField] float hitCamShakeElasped = .1f;
+        [SerializeField] new ParticleSystem particleSystem = null;
         [SerializeField] int hp = 100;
         [SerializeField] ShootAttribute shootAttr = null;
         [SerializeField] MoveAttribute moveAttribute = null;
         List<PlayerComponent> components = new List<PlayerComponent>();
-
         public Rigidbody2D Rb { get; private set; }
         void OnEnable() => DomainEvents.Register<OnBulletHit>(HandleBulletHit);
 
@@ -36,10 +37,15 @@ namespace SgUnity.Player
             if (e.Type != EBulletType.ENEMY || e.ObjectHit != gameObject)
                 return;
             hp -= e.Damage;
+            particleSystem.Play();
+            GameManager.Instance.StartCameraShake(hitCamShakeElasped);
             hp = hp < 0 ? 0 : hp;
             DomainEvents.Raise<OnPlayerHPChange>(new OnPlayerHPChange(hp));
             if (hp == 0)
+            {
                 DomainEvents.Raise<OnPlayerDead>(new OnPlayerDead());
+                gameObject.SetActive(false);
+            }
         }
 
     }

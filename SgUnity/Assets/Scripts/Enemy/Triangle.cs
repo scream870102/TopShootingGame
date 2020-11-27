@@ -3,6 +3,7 @@
 using UnityEngine;
 using Eccentric.Utils;
 using Lean.Pool;
+using System.Linq;
 namespace SgUnity.Enemy
 {
     class Triangle : AEnemy
@@ -17,15 +18,12 @@ namespace SgUnity.Enemy
             components.Add(new TriangleShoot(attr, this));
         }
 
-        void Update() {
-            foreach (AEnemyComponent o in components)
-                o.Tick();
-        }
+        void Update() => components.ForEach(o => o.Tick());
+
         public void SetAttribute(TriangleAttribute attr) {
             this.attr = attr;
             Init(this.attr as BasicEnemyAttribute);
-            foreach (AEnemyComponent o in components)
-                (o as TriangleComponent).Attr = this.attr;
+            components.ForEach(o => (o as TriangleComponent).Attr = this.attr);
         }
     }
     abstract class TriangleComponent : AEnemyComponent
@@ -45,9 +43,7 @@ namespace SgUnity.Enemy
             rb = triangle.Rb;
         }
 
-        ~TriangleMove() {
-            (Parent as Triangle).OnTriEnter -= HandleTriEnter;
-        }
+        ~TriangleMove() => (Parent as Triangle).OnTriEnter -= HandleTriEnter;
 
         public override void HandleEnable() {
             bStartFromRight = Attr.IsStartFromRight;
@@ -76,9 +72,7 @@ namespace SgUnity.Enemy
     class TriangleShoot : TriangleComponent
     {
         ScaledTimer timer = null;
-        public TriangleShoot(TriangleAttribute attr, AEnemy parent) : base(attr, parent) {
-            timer = new ScaledTimer(attr.ShootCd);
-        }
+        public TriangleShoot(TriangleAttribute attr, AEnemy parent) : base(attr, parent) => timer = new ScaledTimer(Attr.ShootCd);
 
         public override void Tick() {
             if (timer.IsFinished)
@@ -89,7 +83,7 @@ namespace SgUnity.Enemy
             }
         }
 
-        public override void HandleEnable() { }
+        public override void HandleEnable() => timer.Reset(Attr.ShootCd);
         public override void HandleDisable() { }
     }
 

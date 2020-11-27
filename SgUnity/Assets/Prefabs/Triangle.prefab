@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7592293851469092841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.57757, y: 0.57757, z: 0.57757}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 2109113383
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 24827b412cccf6f4aab9a7c228798cb4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 306e156a26a699d43b079006982a743b, type: 3}
+  m_Color: {r: 0.49279103, g: 0.9245283, b: 0.8249637, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,6 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2730283863055537985, guid: edd56343cb7424349a7f0e387f74cc5a,
     type: 3}
+  hitPtc: {fileID: 3101435395475239343, guid: 2636d8f6a998dd3428dc04f4ee949d1a, type: 3}
+  diePtc: {fileID: 1201931788097130276, guid: 0207c91cd5ad32348a063bb25244e7a1, type: 3}
   score: 0
   hp: 0
   attr:
@@ -116,7 +118,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -142,7 +144,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7592293851469092841}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
