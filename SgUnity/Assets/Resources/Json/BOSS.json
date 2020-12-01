@@ -1,6 +1,6 @@
 {
     "Score": 1000,
-    "HP": 25000,
+    "HP": 12500,
     "MoveRange": 2.0,
     "MoveSpeed": 3.0,
     "MoveInterval": 1.0,
@@ -29,12 +29,16 @@
         "Damage": 0,
         "MaxCommand": 4,
         "Commands": [
-            "HEXAGON\\\\1\\\\8",
-            "HEXAGON\\\\1\\\\6",
+            "TRIANGLE\\\\1\\\\1",
+            "TRIANGLE\\\\2\\\\2",
+            "TRIANGLE\\\\1\\\\3",
+            "TRIANGLE\\\\2\\\\4",
             "TRIANGLE\\\\1\\\\5",
             "TRIANGLE\\\\2\\\\6",
-            "SQUARE\\\\2\\\\4",
-            "SQUARE\\\\4\\\\3"
+            "HEXAGON\\\\1\\\\8",
+            "HEXAGON\\\\1\\\\7",
+            "SQUARE\\\\1\\\\2",
+            "SQUARE\\\\2\\\\1"
         ]
     },
     "ChaserAttr": {

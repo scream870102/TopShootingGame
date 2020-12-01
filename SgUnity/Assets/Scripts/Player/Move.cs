@@ -12,12 +12,7 @@ namespace SgUnity.Player
             rb = player?.Rb;
         }
 
-
-        public override void Tick() {
-            direction = Vector2.zero;
-            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-            rb.velocity = direction * attr.Vel;
-        }
+        public override void Tick() => rb.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * attr.Vel;
 
     }
 

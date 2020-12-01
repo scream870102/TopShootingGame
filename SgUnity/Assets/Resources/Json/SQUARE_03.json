@@ -1,1 +1,14 @@
-{"Score":10,"HP":1,"PosList":[5,7,6,8],"PosInterval":1.0,"ShootCd":0.1,"BulletVel":3.0,"Damage":10}
+{
+    "Score": 10,
+    "HP": 1,
+    "PosList": [
+        5,
+        7,
+        6,
+        8
+    ],
+    "PosInterval": 1.5,
+    "ShootCd": 0.1,
+    "BulletVel": 3.0,
+    "Damage": 10
+}
