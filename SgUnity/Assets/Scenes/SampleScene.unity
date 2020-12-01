@@ -2097,7 +2097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1332947476
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2180,11 +2180,11 @@ MonoBehaviour:
   hp: 0
   enemyController: {fileID: 2009748185}
   attr:
-    Score: 1000
-    HP: 2500
-    MoveRange: 3
-    MoveSpeed: 3
-    MoveInterval: 1
+    Score: 0
+    HP: 0
+    MoveRange: 0
+    MoveSpeed: 0
+    MoveInterval: 0
     ShotgunAttr:
       Probability: 50
       Interval: 3
@@ -2215,7 +2215,7 @@ MonoBehaviour:
       - SQUARE\\2\\4
       - SQUARE\\4\\3
     ChaserAttr:
-      Probability: 150
+      Probability: 0
       Interval: 3
       Damage: 20
       Vel: 3

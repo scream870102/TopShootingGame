@@ -7,6 +7,7 @@ using System.IO;
 using Lean.Pool;
 using Eccentric;
 using SgUnity.Enemy.Boss;
+using System.Linq;
 namespace SgUnity
 {
     class EnemyController : MonoBehaviour
@@ -26,13 +27,13 @@ namespace SgUnity
             boss.gameObject.SetActive(false);
         }
 
+
         void ActiveBossFight() {
             boss.gameObject.SetActive(true);
             DomainEvents.Raise<OnBossFightStart>(new OnBossFightStart(boss.MaxHP));
         }
-        public void SpawnEnemy(string command) => SpawnEnemyAE(command);
-        void SpawnEnemyAE(string s) {
-            EnemySpawnEvent spawnEvent = new EnemySpawnEvent(s);
+        public void SpawnEnemy(string command) {
+            EnemySpawnEvent spawnEvent = new EnemySpawnEvent(command);
             GameObject o = LeanPool.Spawn(enemyPrefabs[(int)spawnEvent.type], spawnPoint[spawnEvent.startPosIndex].position, Quaternion.identity);
             o.SetActive(false);
             activeEnemies.Add(o);
@@ -45,7 +46,6 @@ namespace SgUnity
                     break;
                 case EEnemyType.SQUARE:
                     Square sq = o.GetComponent<Square>();
-                    sq.PosList = new List<Transform>(spawnPoint);
                     sq.SetAttribute(squareAttributes[spawnEvent.settingIndex], spawnPoint);
                     o.SetActive(true);
                     break;
@@ -58,6 +58,12 @@ namespace SgUnity
                     break;
             }
         }
+        void SpawnEnemyAE(string s) {
+            List<string> commands = new List<string>(s.Split('&'));
+            commands.ForEach(command => SpawnEnemy(command));
+        }
+
+
 
         void RecycleAllActiveEnemiesAE() {
             foreach (GameObject o in activeEnemies)
@@ -70,8 +76,14 @@ namespace SgUnity
         void GetAllAttributes() {
             //load all enemy setting from Application.DATAPATH 
             DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
-            FileInfo[] Files = di.GetFiles("*.json");
-            foreach (FileInfo file in Files)
+            FileInfo[] files = di.GetFiles("*.json");
+            // if there is no file in persistenDataPath try to spawn the file
+            if (files.Length == 0)
+            {
+                GetFromResourcesAndCreateFile();
+                files = di.GetFiles("*.json");
+            }
+            foreach (FileInfo file in files)
             {
                 string type = file.Name.Split('_')[0];
                 if (type == "TRIANGLE")
@@ -80,8 +92,15 @@ namespace SgUnity
                     squareAttributes.Add(JsonUtility.FromJson<SquareAttribute>(file.OpenText().ReadToEnd()));
                 else if (type == "HEXAGON")
                     hexagonAttributes.Add(JsonUtility.FromJson<HexagonAttribute>(file.OpenText().ReadToEnd()));
+                else if (file.Name == "BOSS.json")
+                    boss.SetAttribute(JsonUtility.FromJson<BossAttribute>(file.OpenText().ReadToEnd()));
 
             }
+        }
+
+        void GetFromResourcesAndCreateFile() {
+            List<TextAsset> textAssets = new List<TextAsset>(Resources.LoadAll<TextAsset>("Json"));
+            textAssets.ForEach(textAsset => File.WriteAllText(Application.persistentDataPath + "/" + textAsset.name + ".json", textAsset.text));
         }
     }
 

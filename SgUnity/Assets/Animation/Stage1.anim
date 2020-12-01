@@ -665,28 +665,14 @@ AnimationClip:
   m_Events:
   - time: 2
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\2
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 2
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\1
+    data: TRIANGLE\\2\\2&TRIANGLE\\1\\1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.4
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\3
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 2.4
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\4
+    data: TRIANGLE\\2\\3&TRIANGLE\\1\\4
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

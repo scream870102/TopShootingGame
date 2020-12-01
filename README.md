@@ -24,3 +24,7 @@ TRIANGLE\\1\\1
 
 C:\Scream\Unity\TOYDEA Lesson2\SgUnity\Assets\Lean\Pool\Scripts\LeanPool.cs :: 163
 C:\Scream\Unity\TOYDEA Lesson2\SgUnity\Assets\Lean\Pool\Scripts\LeanGameObjectPool.cs :: 266
+
+---
+
+**EC active Enemy List**
