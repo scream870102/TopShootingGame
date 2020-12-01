@@ -1,0 +1,9 @@
+{
+    "Score": 10,
+    "HP": 1,
+    "MoveSpeed": 3.0,
+    "ShootCd": 1.0,
+    "BulletVel": 2.0,
+    "Damage": 20,
+    "IsStartFromRight": false
+}

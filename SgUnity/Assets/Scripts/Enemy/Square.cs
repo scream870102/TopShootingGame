@@ -10,18 +10,25 @@ namespace SgUnity.Enemy
     class Square : AEnemy
     {
         [SerializeField] SquareAttribute attr = null;
-        public List<Transform> PosList { get; set; } = new List<Transform>();
+#if UNITY_EDITOR
+        [SerializeField]
+
+#endif
+        List<Transform> posList = null;
         void Awake() {
             Init(attr as BasicEnemyAttribute);
             components.Add(new SquareMove(attr, this));
             components.Add(new SquareShoot(attr, this));
+#if UNITY_EDITOR
+            (components[0] as SquareMove).SetPosList(posList);
+#endif
         }
 
-        void Update() => components.ForEach(o=>o.Tick());
-            
+        void Update() => components.ForEach(o => o.Tick());
+
         public void SetAttribute(SquareAttribute attr, List<Transform> spawnPoint) {
-            PosList = new List<Transform>(spawnPoint);
-            (components[0] as SquareMove).SetPosList(PosList);
+            posList = new List<Transform>(spawnPoint);
+            (components[0] as SquareMove).SetPosList(posList);
             this.attr = attr;
             Init(this.attr as BasicEnemyAttribute);
             components.ForEach(o => (o as SquareComponent).Attr = this.attr);

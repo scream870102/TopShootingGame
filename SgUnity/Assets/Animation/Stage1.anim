@@ -665,224 +665,105 @@ AnimationClip:
   m_Events:
   - time: 2
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\2
+    data: TRIANGLE\\1\\1&TRIANGLE\\2\\2
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2
+  - time: 2.6
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\1
+    data: TRIANGLE\\1\\3&TRIANGLE\\2\\4
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.4
+  - time: 3.2
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\3
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 2.4
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\4
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 3
-    functionName: SpawnEnemyAE
-    data: HEXAGON\\1\\7
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 4
-    functionName: SpawnEnemyAE
-    data: HEXAGON\\1\\8
+    data: TRIANGLE\\1\\5&TRIANGLE\\2\\6
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 5
     functionName: SpawnEnemyAE
-    data: SQUARE\\2\\4
+    data: HEXAGON\\1\\7&HEXAGON\\1\\8
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 5
+  - time: 7
     functionName: SpawnEnemyAE
-    data: SQUARE\\1\\2
+    data: SQUARE\\1\\2&SQUARE\\2\\1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 6
+  - time: 9.8
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\5
+    data: TRIANGLE\\1\\5&TRIANGLE\\2\\6
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 6.2
+  - time: 10.4
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\6
+    data: TRIANGLE\\1\\3&TRIANGLE\\2\\4
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 6.4
+  - time: 11
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\1
+    data: TRIANGLE\\1\\1&TRIANGLE\\2\\2
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 6.6
+  - time: 12
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\2
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 8
-    functionName: SpawnEnemyAE
-    data: SQUARE\\2\\4
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 8
-    functionName: SpawnEnemyAE
-    data: SQUARE\\1\\2
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 10
-    functionName: SpawnEnemyAE
-    data: SQUARE\\4\\3
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 10
-    functionName: SpawnEnemyAE
-    data: SQUARE\\3\\1
+    data: SQUARE\\1\\2&SQUARE\\2\\1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 13
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\7
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 13
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\8
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 13
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\7
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 13
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\8
+    data: TRIANGLE\\1\\3&TRIANGLE\\2\\4
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 14
     functionName: SpawnEnemyAE
-    data: HEXAGON\\1\\5
+    data: SQUARE\\1\\2&SQUARE\\2\\1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 14.2
+  - time: 15
     functionName: SpawnEnemyAE
-    data: HEXAGON\\1\\6
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 16
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\5
+    data: HEXAGON\\1\\7&HEXAGON\\1\\8
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 16
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\4
+    data: TRIANGLE\\1\\1&TRIANGLE\\2\\2&TRIANGLE\\1\\3&TRIANGLE\\2\\4&TRIANGLE\\1\\5&TRIANGLE\\2\\6
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 16.4
+  - time: 17
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\1
+    data: TRIANGLE\\1\\1&TRIANGLE\\2\\2&TRIANGLE\\1\\3&TRIANGLE\\2\\4&TRIANGLE\\1\\5&TRIANGLE\\2\\6
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 16.4
+  - time: 18
     functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\2
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 16.8
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\2\\3
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 16.8
-    functionName: SpawnEnemyAE
-    data: TRIANGLE\\1\\4
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 17.8
-    functionName: SpawnEnemyAE
-    data: SQUARE\\3\\8
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 18.2
-    functionName: SpawnEnemyAE
-    data: SQUARE\\4\\6
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 18.6
-    functionName: SpawnEnemyAE
-    data: SQUARE\\3\\8
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 19
-    functionName: SpawnEnemyAE
-    data: SQUARE\\4\\6
+    data: TRIANGLE\\1\\1&TRIANGLE\\2\\2&TRIANGLE\\1\\3&TRIANGLE\\2\\4&TRIANGLE\\1\\5&TRIANGLE\\2\\6
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

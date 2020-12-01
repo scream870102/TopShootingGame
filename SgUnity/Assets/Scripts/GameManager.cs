@@ -10,12 +10,12 @@ namespace SgUnity
 {
     class GameManager : TSingletonMonoBehavior<GameManager>
     {
-        [ReadOnly] [SerializeField] bool bBossDie = false;
-        [ReadOnly] [SerializeField] bool bPlayerDie = false;
-        bool bReload = false;
-        [ReadOnly] [SerializeField] CinemachineVirtualCamera cam = null;
         [SerializeField] float amplitude = 0f;
         [SerializeField] float frequency = 0f;
+        bool bBossDie = false;
+        bool bPlayerDie = false;
+        bool bReload = false;
+        CinemachineVirtualCamera cam = null;
         CinemachineBasicMultiChannelPerlin noise = null;
         public P.Player Player { get; private set; } = null;
         protected override void Awake() {

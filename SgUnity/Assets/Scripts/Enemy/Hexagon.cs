@@ -41,7 +41,6 @@ namespace SgUnity.Enemy
     class HexagonMove : HexagonComponent
     {
         Rigidbody2D rb = null;
-        Vector2 dir = default(Vector2);
         P.Player player = null;
         public HexagonMove(HexagonAttribute attr, AEnemy parent) : base(attr, parent) {
             Hexagon hexagon = parent as Hexagon;

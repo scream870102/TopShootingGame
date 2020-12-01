@@ -1,0 +1,63 @@
+{
+    "Score": 1000,
+    "HP": 12500,
+    "MoveRange": 2.0,
+    "MoveSpeed": 3.0,
+    "MoveInterval": 1.0,
+    "ShotgunAttr": {
+        "Probability": 100,
+        "Interval": 3.0,
+        "Damage": 30,
+        "Vel": 5.0,
+        "CD": 0.5,
+        "Elapsed": 3.0,
+        "Degree": 150.0,
+        "NumOfBullets": 7
+    },
+    "SpiralAttr": {
+        "Probability": 100,
+        "Interval": 3.0,
+        "Damage": 100,
+        "Vel": 4.0,
+        "CD": 0.1,
+        "Elapsed": 5.0,
+        "IntervalDegree": 15.0
+    },
+    "CalloutAttr": {
+        "Probability": 150,
+        "Interval": 10.0,
+        "Damage": 0,
+        "MaxCommand": 4,
+        "Commands": [
+            "TRIANGLE\\\\1\\\\1",
+            "TRIANGLE\\\\2\\\\2",
+            "TRIANGLE\\\\1\\\\3",
+            "TRIANGLE\\\\2\\\\4",
+            "TRIANGLE\\\\1\\\\5",
+            "TRIANGLE\\\\2\\\\6",
+            "HEXAGON\\\\1\\\\8",
+            "HEXAGON\\\\1\\\\7",
+            "SQUARE\\\\1\\\\2",
+            "SQUARE\\\\2\\\\1"
+        ]
+    },
+    "ChaserAttr": {
+        "Probability": 100,
+        "Interval": 5.0,
+        "Damage": 20,
+        "Vel": 3.0,
+        "CD": 0.1,
+        "Elapsed": 5.0,
+        "ChaseTime": 3.0
+    },
+    "WaveAttr": {
+        "Probability": 150,
+        "Interval": 3.0,
+        "Damage": 30,
+        "Vel": 1.5,
+        "CD": 2.0,
+        "Elapsed": 6.0,
+        "IntervalDegree": 10.0,
+        "MaxDegree": 150.0
+    }
+}
