@@ -26,14 +26,15 @@ namespace SgUnity.Enemy.Boss
         }
         bool bStage2 = false;
 
-        void Awake() {
+        void Awake()
+        {
             rb = GetComponent<Rigidbody2D>();
-#if UNITY_EDITOR
-            //load all enemy setting from Application.DATAPATH 
-            DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
-            FileInfo[] Files = di.GetFiles("BOSS.json");
-            attr = JsonUtility.FromJson<BossAttribute>(Files[0].OpenText().ReadToEnd());
-#endif
+            // #if UNITY_EDITOR
+            //             //load all enemy setting from Application.DATAPATH 
+            //             DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
+            //             FileInfo[] Files = di.GetFiles("BOSS.json");
+            //             attr = JsonUtility.FromJson<BossAttribute>(Files[0].OpenText().ReadToEnd());
+            // #endif
             Init(attr as BasicEnemyAttribute);
             components.Add(new BossAttack(attr, this));
             components.Add(new BossMove(attr, this));
@@ -42,13 +43,15 @@ namespace SgUnity.Enemy.Boss
 
         void Update() => components.ForEach(o => o.Tick());
 
-        public void SetAttribute(BossAttribute attr) {
+        public void SetAttribute(BossAttribute attr)
+        {
             this.attr = attr;
             Init(this.attr as BasicEnemyAttribute);
             components.ForEach(o => (o as BossComponent).Attr = this.attr);
         }
 
-        protected override void HandleBulletHit(OnBulletHit e) {
+        protected override void HandleBulletHit(OnBulletHit e)
+        {
             if (e.Type != EBulletType.PLAYER || e.ObjectHit != gameObject)
                 return;
             hp -= e.Damage;
@@ -83,7 +86,8 @@ namespace SgUnity.Enemy.Boss
         Vector2 initPos = new Vector2(-0.02f, 3.06f);
         ScaledTimer timer = null;
         public bool IsMove { get; set; }
-        public BossMove(BossAttribute attr, AEnemy parent) : base(attr, parent) {
+        public BossMove(BossAttribute attr, AEnemy parent) : base(attr, parent)
+        {
             moveRange = attr.MoveRange;
             moveSpeed = attr.MoveSpeed;
             moveInterval = attr.MoveInterval;
@@ -91,7 +95,8 @@ namespace SgUnity.Enemy.Boss
             IsMove = true;
         }
 
-        public override void Tick() {
+        public override void Tick()
+        {
             if (!IsMove)
             {
                 (Parent as Boss).Rb.velocity = Vector2.zero;
@@ -115,13 +120,15 @@ namespace SgUnity.Enemy.Boss
     {
         List<AAttack> attacks = new List<AAttack>();
         AAttack currentAttack = null;
-        public BossAttack(BossAttribute attr, AEnemy parent) : base(attr, parent) {
+        public BossAttack(BossAttribute attr, AEnemy parent) : base(attr, parent)
+        {
             attacks.Add(new Shotgun(Attr.ShotgunAttr, this));
             attacks.Add(new Spiral(Attr.SpiralAttr, this));
             attacks.Add(new Callout(Attr.CalloutAttr, this));
         }
 
-        public override void Tick() {
+        public override void Tick()
+        {
             // No action right now find a new attack and active it
             if (currentAttack == null)
             {
@@ -144,12 +151,14 @@ namespace SgUnity.Enemy.Boss
 
         public override void HandleDisable() => DomainEvents.UnRegister<OnBossStage2>(HandleBossStage2);
 
-        void HandleBossStage2(OnBossStage2 e) {
+        void HandleBossStage2(OnBossStage2 e)
+        {
             attacks.Add(new Chaser(Attr.ChaserAttr, this));
             attacks.Add(new Wave(Attr.WaveAttr, this));
         }
 
-        AAttack ChooseAttack(List<AAttack> avaliable) {
+        AAttack ChooseAttack(List<AAttack> avaliable)
+        {
             int sum = 0;
             avaliable.ForEach(a => sum += a.Probability);
             int result = Random.Range(0, sum + 1);
@@ -168,13 +177,15 @@ namespace SgUnity.Enemy.Boss
     {
         int maxCommand = 0;
         List<string> commands = new List<string>();
-        public Callout(CalloutAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst) {
+        public Callout(CalloutAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst)
+        {
             maxCommand = attr.MaxCommand;
             commands.Clear();
             commands.AddRange(attr.Commands);
         }
 
-        public override void Init() {
+        public override void Init()
+        {
             base.Init();
             int num = Random.Range(2, maxCommand + 1);
             for (int i = 0; i < num; i++)
@@ -202,7 +213,8 @@ namespace SgUnity.Enemy.Boss
         float maxDegree = 0f;
         ScaledTimer elapsedTimer = null;
         ScaledTimer cdTimer = null;
-        public Wave(WaveAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst) {
+        public Wave(WaveAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst)
+        {
             vel = attr.Vel;
             cd = attr.CD;
             elapsed = attr.Elapsed;
@@ -210,13 +222,15 @@ namespace SgUnity.Enemy.Boss
             maxDegree = attr.MaxDegree;
         }
 
-        public override void Init() {
+        public override void Init()
+        {
             base.Init();
             elapsedTimer = new ScaledTimer(elapsed, false);
             cdTimer = new ScaledTimer(cd);
         }
 
-        public override void Tick() {
+        public override void Tick()
+        {
             if (elapsedTimer.IsFinished)
             {
                 (Controller.Parent as Boss).IsMove = true;
@@ -230,7 +244,8 @@ namespace SgUnity.Enemy.Boss
             }
         }
 
-        void Shoot() {
+        void Shoot()
+        {
             float initDegree = Random.Range(270f, 630f);
             LeanPool.Spawn(Controller.Parent.BulletPrefab, Controller.Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().
                 Shoot(Math.GetDirectionFromDeg(initDegree) * vel, EBulletType.ENEMY, Damage);
@@ -247,7 +262,7 @@ namespace SgUnity.Enemy.Boss
     [System.Serializable]
     class WaveAttr : BasicAttackAttr
     {
-        public float Vel = 3f;
+        public float Vel = 2f;
         public float CD = 2f;
         public float Elapsed = 6f;
         public float IntervalDegree = 20f;
@@ -264,20 +279,23 @@ namespace SgUnity.Enemy.Boss
         ScaledTimer elapsedTimer = null;
         ScaledTimer cdTimer = null;
         float currenDegree = 90f;
-        public Spiral(SpiralAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst) {
+        public Spiral(SpiralAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst)
+        {
             vel = attr.Vel;
             cd = attr.CD;
             elapsed = attr.Elapsed;
             intervalDegree = attr.IntervalDegree;
         }
 
-        public override void Init() {
+        public override void Init()
+        {
             base.Init();
             elapsedTimer = new ScaledTimer(elapsed, false);
             cdTimer = new ScaledTimer(cd);
         }
 
-        public override void Tick() {
+        public override void Tick()
+        {
             if (elapsedTimer.IsFinished)
                 IsFinished = true;
             if (cdTimer.IsFinished)
@@ -287,7 +305,8 @@ namespace SgUnity.Enemy.Boss
             }
         }
 
-        void Shoot() {
+        void Shoot()
+        {
             LeanPool.Spawn(Controller.Parent.BulletPrefab, Controller.Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().
                 Shoot(Math.GetDirectionFromDeg(currenDegree) * vel, EBulletType.ENEMY, Damage);
             currenDegree += intervalDegree;
@@ -308,23 +327,28 @@ namespace SgUnity.Enemy.Boss
         float vel = 0;
         float cd = 0f;
         float elapsed = 0f;
+        float damp = 0f;
         float chaseTime = 0f;
         ScaledTimer elapsedTimer = null;
         ScaledTimer cdTimer = null;
-        public Chaser(ChaserAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst) {
+        public Chaser(ChaserAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst)
+        {
             vel = attr.Vel;
             cd = attr.CD;
             elapsed = attr.Elapsed;
             chaseTime = attr.ChaseTime;
+            damp = attr.Damp;
         }
 
-        public override void Init() {
+        public override void Init()
+        {
             base.Init();
             elapsedTimer = new ScaledTimer(elapsed, false);
             cdTimer = new ScaledTimer(cd);
         }
 
-        public override void Tick() {
+        public override void Tick()
+        {
             if (elapsedTimer.IsFinished)
                 IsFinished = true;
             if (cdTimer.IsFinished)
@@ -334,19 +358,21 @@ namespace SgUnity.Enemy.Boss
             }
         }
 
-        void Shoot() {
+        void Shoot()
+        {
             LeanPool.Spawn((Controller.Parent as Boss).ChaseBulletPrefab, Controller.Parent.transform.position, Quaternion.identity)
-                .GetComponent<ChaserBullet>().Shoot(GameManager.Instance.Player.transform, chaseTime, vel, EBulletType.ENEMY, Damage);
+                .GetComponent<ChaserBullet>().Shoot(GameManager.Instance.Player.transform, chaseTime, vel, EBulletType.ENEMY, Damage, damp);
         }
     }
 
     [System.Serializable]
     class ChaserAttr : BasicAttackAttr
     {
-        public float Vel = 2f;
-        public float CD = 0.3f;
-        public float Elapsed = 1f;
-        public float ChaseTime = 3f;
+        public float Vel = 3f;
+        public float CD = 1f;
+        public float Elapsed = 3f;
+        public float ChaseTime = 4f;
+        public float Damp = .1f;
     }
 
     class Shotgun : AAttack
@@ -359,7 +385,8 @@ namespace SgUnity.Enemy.Boss
         float intervalDegree = 0f;
         ScaledTimer elapsedTimer = null;
         ScaledTimer cdTimer = null;
-        public Shotgun(ShotgunAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst) {
+        public Shotgun(ShotgunAttr attr, BossAttack controller, bool isReadyAtFirst = true) : base(attr, controller, isReadyAtFirst)
+        {
             vel = attr.Vel;
             cd = attr.CD;
             elapsed = attr.Elapsed;
@@ -368,13 +395,15 @@ namespace SgUnity.Enemy.Boss
             intervalDegree = maxDegree / (numOfBullets - 1);
         }
 
-        public override void Init() {
+        public override void Init()
+        {
             base.Init();
             elapsedTimer = new ScaledTimer(elapsed, false);
             cdTimer = new ScaledTimer(cd);
         }
 
-        public override void Tick() {
+        public override void Tick()
+        {
             if (elapsedTimer.IsFinished)
             {
                 (Controller.Parent as Boss).IsMove = true;
@@ -388,7 +417,8 @@ namespace SgUnity.Enemy.Boss
             }
         }
 
-        void Shoot() {
+        void Shoot()
+        {
             LeanPool.Spawn(Controller.Parent.BulletPrefab, Controller.Parent.transform.position, Quaternion.identity).GetComponent<Bullet>().Shoot(new Vector2(0f, -vel), EBulletType.ENEMY, Damage);
             for (int i = 1; i <= numOfBullets / 2; i++)
             {
@@ -438,7 +468,8 @@ namespace SgUnity.Enemy.Boss
         public abstract void Tick();
         public virtual void End() => intervalTimer.Reset(interval);
 
-        public AAttack(BasicAttackAttr attr, BossAttack controller, bool isReadyAtFirst = true) {
+        public AAttack(BasicAttackAttr attr, BossAttack controller, bool isReadyAtFirst = true)
+        {
             Probability = attr.Probability;
             interval = attr.Interval;
             Damage = attr.Damage;

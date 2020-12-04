@@ -1847,131 +1847,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1095453369
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1095453370}
-  - component: {fileID: 1095453371}
-  m_Layer: 0
-  m_Name: EnemyAttrSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1095453370
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095453369}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1841556658}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1095453371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095453369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d9a5a4d8f749b348b18c6ef455246c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PATH: C:/Scream/Unity/TOYDEA Lesson2/SgUnity/Assets
-  TA_FILENAME: NONE
-  TA:
-    Score: 10
-    HP: 1
-    MoveSpeed: 3
-    ShootCd: 1
-    BulletVel: 3
-    Damage: 10
-    IsStartFromRight: 0
-  SQ_FILENAME: NONE
-  SQ:
-    Score: 10
-    HP: 1
-    PosList: 00000000010000000200000003000000
-    PosInterval: 2
-    ShootCd: 1
-    BulletVel: 3
-    Damage: 10
-  XG_FILENAME: NONE
-  XG:
-    Score: 10
-    HP: 1
-    MoveSpeed: 3
-    ShootCd: 1
-    BulletVel: 3
-    IntervalDegreeBetweenBullet: 30
-    BulletNum: 3
-    Damage: 10
-  BOSS_FILENAME: BOSS.json
-  BOSS:
-    Score: 1000
-    HP: 2500
-    MoveRange: 3
-    MoveSpeed: 3
-    MoveInterval: 1
-    ShotgunAttr:
-      Probability: 50
-      Interval: 3
-      Damage: 30
-      Vel: 10
-      CD: 0.5
-      Elapsed: 3
-      Degree: 150
-      NumOfBullets: 7
-    SpiralAttr:
-      Probability: 50
-      Interval: 3
-      Damage: 100
-      Vel: 6
-      CD: 0.1
-      Elapsed: 5
-      IntervalDegree: 30
-    CalloutAttr:
-      Probability: 100
-      Interval: 10
-      Damage: 0
-      MaxCommand: 4
-      Commands:
-      - HEXAGON\\1\\8
-      - HEXAGON\\1\\6
-      - TRIANGLE\\1\\5
-      - TRIANGLE\\2\\6
-      - SQUARE\\2\\4
-      - SQUARE\\4\\3
-    ChaserAttr:
-      Probability: 150
-      Interval: 3
-      Damage: 20
-      Vel: 3
-      CD: 0.1
-      Elapsed: 5
-      ChaseTime: 3
-    WaveAttr:
-      Probability: 200
-      Interval: 6
-      Damage: 30
-      Vel: 5
-      CD: 1
-      Elapsed: 6
-      IntervalDegree: 15
-      MaxDegree: 120
 --- !u!1 &1287358114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,7 +1972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1332947476
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2158,7 +2033,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1332947478
 MonoBehaviour:
@@ -2222,6 +2097,7 @@ MonoBehaviour:
       CD: 0.1
       Elapsed: 5
       ChaseTime: 3
+      Damp: 0.5
     WaveAttr:
       Probability: 200
       Interval: 6
@@ -2443,7 +2319,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775666, y: 1}
+    m_SensorSize: {x: 2.118081, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2465,7 +2341,7 @@ Transform:
   m_Children:
   - {fileID: 732333981}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1401741793
 GameObject:
@@ -8144,37 +8020,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &1841556657
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1841556658}
-  m_Layer: 0
-  m_Name: Editor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1841556658
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1841556657}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1095453370}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858547947
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,21 +43,22 @@
     },
     "ChaserAttr": {
         "Probability": 100,
-        "Interval": 5.0,
+        "Interval": 10.0,
         "Damage": 20,
         "Vel": 3.0,
-        "CD": 0.1,
-        "Elapsed": 5.0,
-        "ChaseTime": 3.0
+        "CD": 1.0,
+        "Elapsed": 3.0,
+        "ChaseTime": 4.0,
+        "Damp": 0.1
     },
     "WaveAttr": {
         "Probability": 150,
         "Interval": 3.0,
         "Damage": 30,
-        "Vel": 1.5,
+        "Vel": 2.0,
         "CD": 2.0,
         "Elapsed": 6.0,
-        "IntervalDegree": 10.0,
+        "IntervalDegree": 20.0,
         "MaxDegree": 150.0
     }
 }

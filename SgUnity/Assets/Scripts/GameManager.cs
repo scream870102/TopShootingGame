@@ -18,13 +18,15 @@ namespace SgUnity
         CinemachineVirtualCamera cam = null;
         CinemachineBasicMultiChannelPerlin noise = null;
         public P.Player Player { get; private set; } = null;
-        protected override void Awake() {
+        protected override void Awake()
+        {
             base.Awake();
             Init();
         }
 
 
-        void Init() {
+        void Init()
+        {
             bBossDie = false;
             bPlayerDie = false;
             bReload = false;
@@ -33,17 +35,20 @@ namespace SgUnity
             noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         }
 
-        void OnEnable() {
+        void OnEnable()
+        {
             DomainEvents.Register<OnBossDie>(HandleBossDie);
             DomainEvents.Register<P.OnPlayerDead>(HandlePlayerDead);
         }
-        void OnDisable() {
+        void OnDisable()
+        {
             DomainEvents.UnRegister<OnBossDie>(HandleBossDie);
             DomainEvents.UnRegister<P.OnPlayerDead>(HandlePlayerDead);
 
         }
 
-        void Update() {
+        void Update()
+        {
             if (Player == null)
                 Player = GameObject.Find("Player").GetComponent<P.Player>();
             if (cam == null)
@@ -65,11 +70,10 @@ namespace SgUnity
 
         }
 
-        public void StartCameraShake(float elapsed) {
-            StartCoroutine(CameraShake(elapsed));
-        }
+        public void StartCameraShake(float elapsed) => StartCoroutine(CameraShake(elapsed));
 
-        IEnumerator CameraShake(float elapsed) {
+        IEnumerator CameraShake(float elapsed)
+        {
             noise.m_FrequencyGain = frequency;
             noise.m_AmplitudeGain = amplitude;
             yield return new WaitForSeconds(elapsed);
